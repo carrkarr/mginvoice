@@ -1,0 +1,767 @@
+
+/*=============================================================
+    Authour URI:
+    License: Commons Attribution 3.0
+
+    http://creativecommons.org/licenses/by/3.0/
+
+    100% To use For Personal And Commercial Use.
+    IN EXCHANGE JUST GIVE US CREDITS AND TELL YOUR FRIENDS ABOUT US
+
+    ========================================================  */
+
+
+
+/* ===========================================================
+   GENERAL STYLESHEET BY BYINARY THEME
+   ============================================================*/
+
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    color: #000;
+    line-height: 16px;
+    font-weight: 400;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Open Sans', sans-serif;
+    line-height: 40px;
+}
+
+h1 {
+    padding-top: 30px;
+    color: #fff;
+    font-weight: 800;
+}
+
+h5 {
+    padding-bottom: 30px;
+}
+h4{
+    margin-top: 4px;
+}
+.text-center {
+    text-align: center;
+}
+
+.main-top-margin {
+    margin-top: 120px;
+}
+
+.main-low-margin {
+    margin-top: 55px;
+}
+
+a, a:hover {
+    text-decoration: none;
+}
+
+p {
+    line-height: 30px;
+    margin-bottom: 23px;
+}
+
+.img-margin-product {
+    margin-top: 30px;
+}
+
+.bottam-pad {
+    padding-bottom: 40px;
+}
+
+.space-bottom {
+    height: 120px;
+}
+
+.space-top {
+    height: 70px;
+}
+
+.main-icon {
+    font-size: 350px;
+    color: rgba(102, 110, 197, 1);
+}
+
+.head-line {
+    font-size: 70px;
+    padding-bottom: 50px;
+    line-height: 65px;
+    font-weight: 900;
+}
+/* ==========================================================================
+   COLOR CODES
+   ========================================================================== */
+
+.color-red {
+    color: #ff0000;
+}
+
+.color-green {
+    color: #07BB00;
+}
+
+.color-light-blue {
+    color: #BB00BB;
+}
+
+.color-blue {
+    color: #0052FF;
+}
+
+.color-brown {
+    color: #EB8F2D;
+
+}
+
+.color-black {
+    color: #000000;
+}
+
+.section {
+    background-color: #4E63D1;
+    color: #fff;
+}
+.circle-body {
+ width: 150px;
+height: 150px;
+margin: 0 auto 14px auto;
+border: 5px solid #ADA2EB;
+border-radius: 100%;
+background-color: #FFFFFF;
+}
+.icon-set {
+    position: relative;
+padding: 30px;
+}
+/* ==========================================================================
+   PRICE SECTION
+   ========================================================================== */
+
+.active-div {
+    background: #83BEFF!important;
+}
+
+#pricing-section .plan-main {
+    background: #FFFFFF;
+list-style: none;
+margin: 0 0 20px;
+text-align: center;
+padding: 0;
+border-bottom: 1px solid #e1e1e1;
+border: 1px solid #E9E9E9;
+}
+
+    #pricing-section .plan-main li {
+        padding: 10px 0;
+        margin: 0 15px;
+        border-bottom: 1px dashed #eee;
+    }
+
+        #pricing-section .plan-main li.plan-name {
+            padding: 15px 0;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        #pricing-section .plan-main li.plan-price {
+            color: #666;
+            padding: 15px 0;
+            font-size: 48px;
+        }
+
+        #pricing-section .plan-main li.plan-action {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            border-bottom: 0;
+        }
+
+
+        #pricing-section .plan-main.featured .plan-price {
+            color: #fff;
+            background-color: #242424;
+            border-bottom-color: #52b6ec;
+            margin: 0;
+        }
+
+
+
+/*==========================================
+   SOCIAL ICON STYLES
+    =====================================================*/
+
+
+.color-facebook {
+    color: #3B5998;
+}
+
+.color-twitter {
+    color: #00aced;
+}
+
+.color-google-plus {
+    color: #dd4b39;
+}
+
+.color-linkedin {
+    color: #007bb6;
+}
+
+.color-pinterest {
+    color: #cb2027;
+}
+/* ===========================================================
+   COMPONENT.CSS  CHANGES
+   ============================================================*/
+.slideshow nav span.nav-prev, .slideshow nav span.nav-next {
+left: 33%!important;
+
+}
+.slideshow {
+    z-index: 1500!important;
+}
+.slideshow nav span.nav-close {
+color: #FF0000;
+}
+    .slideshow nav span {
+        color: #FF0000;
+    }
+/* ===========================================================
+   SLIDER ADJUSTMENTS (slider.css)
+   ============================================================*/
+
+     .slidesjs-container {
+            height:550px!important;
+        }
+#slides {
+    border:1px dashed #e1e1e1;
+    padding:0px 0px 15px 0px;
+}
+/* ===========================================================
+   BOOTSTRAP ELEMENTS CHANGES
+   ============================================================*/
+.navbar {
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.navbar-inverse {
+    background: #C0C0C0;
+    border-color: #000;
+}
+
+    .navbar-inverse .navbar-nav > .active > a {
+        background: #ffffff;
+    }
+
+    .navbar-inverse .navbar-brand {
+        color: #fff;
+        font-weight: bolder;
+        font-size: 25px;
+        font-weight: 900;
+        letter-spacing: 2px;
+    }
+
+    .navbar-inverse :hover .navbar-brand:hover {
+        color: #fff;
+    }
+
+    .navbar-inverse .navbar-nav > li > a {
+        color: #FFFFFF;
+    }
+
+
+/* ==========================================================================
+   FOOTER SECTION
+   ========================================================================== */
+
+footer {
+  min-height: 10px;
+  background-color: #191919;
+  background-image: -moz-linear-gradient(top, #191919, #000000);
+  background-image: -o-linear-gradient(top, #191919, #000000);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #191919), color-stop(1, #000000));
+  background-image: -webkit-linear-gradient(#191919, #000000);
+  background-image: linear-gradient(top, #191919, #000000);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#191919', endColorStr='#000000');
+  border-top: 1px solid rgba(50, 50, 50, 0.3);
+  width: 100%;
+  /*position: relative;
+  clear: both;
+  margin-top: 0px;            ELIMINADO
+  padding-top: 0px;
+  overflow: visible;*/
+  position: fixed;
+  bottom: 0;              /* NUEVO */
+  height: 69px;
+
+  font-family: 'Open Sans', sans-serif;
+  color:#FFFFFF;  /* Color de font  blanco */
+  #font-size: 20px;
+}
+
+
+/* Clase form general  , se define con un punto . */
+.form_gral {
+  #background: #111;
+  background: linear-gradient(to bottom, rgba(146, 135, 187, 0.8) 0%, rgba(0,0,0,0.6) 100%);
+  transition: opacity 0.1s, transform 0.3s cubic-bezier(0.17, -0.65, 0.665, 1.25);
+  transform: scale(1);
+
+  border: 1px solid #191919;
+  border-radius: .4em;
+  bottom: 0;
+  box-shadow: 0 5px 10px 5px rgba(0,0,0,0.2);
+  height: 469px;
+  left: 0;
+  margin: auto;
+  overflow: hidden;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 900px;
+}
+
+/** botones */
+
+.btn{
+    width: 5px;
+}
+
+.btn:hover {  background: #2079b0;  background-image: -webkit-linear-gradient(top, #2079b0, #eb94d0);
+  background-image: -moz-linear-gradient(top, #2079b0, #eb94d0);
+  background-image: -ms-linear-gradient(top, #2079b0, #eb94d0);
+  background-image: -o-linear-gradient(top, #2079b0, #eb94d0);
+  background-image: linear-gradient(to bottom, #2079b0, #eb94d0);  text-decoration: none;
+}
+
+
+.boton_1{
+  padding: 0 16px;
+  border-radius: 2px;
+  background-color: #018786;
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2),
+    0 2px 2px 0 rgba(0, 0, 0, 0.14),
+    0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  color: #fff;
+  transition: background-color 15ms linear,
+    box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  height: 16px;
+  line-height: 2.25rem;
+  font-family: Roboto, sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.boton_1:hover{
+ box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2),
+    0 4px 5px 0 rgba(0, 0, 0, 0.14),
+    0 1px 10px 0 rgba(0, 0, 0, 0.12);
+  background-color: #159090;
+}
+
+/* ************************************************
+LOGIN
+************************************************** */
+
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video {
+  border: 0;
+  #font: inherit;
+  font-family: 'Open Sans', sans-serif;
+  #font-size: 100%;
+  margin: 0;
+  padding: 0;
+  vertical-align: baseline;
+  text-rendering: optimizeLegibility;
+}
+
+
+.background-wrap {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.background {
+  #background: url('https://myrror.co/etc/419062774_1385132057.jpg');
+  background-size: cover;
+  filter: blur(10px);
+  height: 105%;
+  position: relative;
+  width: 105%;
+  right: -2.5%;
+  left: -2.5%;
+  top: -2.5%;
+  bottom: -2.5%;
+
+}
+
+/* Clase form para el login , se define con un punto . */
+.form_login {
+  #background: #111;
+  background: linear-gradient(to bottom, rgba(146, 135, 187, 0.8) 0%, rgba(0,0,0,0.6) 100%);
+  transition: opacity 0.1s, transform 0.3s cubic-bezier(0.17, -0.65, 0.665, 1.25);
+  transform: scale(1);
+
+  border: 1px solid #191919;
+  border-radius: .4em;
+  bottom: 0;
+  box-shadow: 0 5px 10px 5px rgba(0,0,0,0.2);
+  height: 339px;
+  left: 0;
+  margin: auto;
+  overflow: hidden;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 300px;
+}
+
+form:after {
+  #background: linear-gradient(to right, #111111, #444444, #b6b6b8, #444444, #2F2F2F, #272727);
+  content: "";
+  display: block;
+  height: 1px;
+  left: 50px;
+  position: absolute;
+  top: 0;
+  width: 150px;
+}
+
+form:before {
+  border-radius: 50%;
+  box-shadow: 0 0 6px 4px #fff;
+  content: "";
+  display: block;
+  height: 5px;
+  left: 34%;
+  position: absolute;
+  top: -7px;
+  width: 8px;
+}
+
+/* inset = recuadro */
+.inset {
+  #border-top: 1px solid #19191a;
+  padding: 5px;
+  color: #FFFFFF;
+}
+
+.inset2 {
+  width: 369px;
+  padding: 5px;
+  color: #FFFFFF;
+  margin:auto; # Centra el elemnto d eentrada de texto
+}
+
+.insetbtn {
+  width: 169px;
+  padding: 5px;
+  color: #FFFFFF;
+  margin:auto; # Centra el elemnto d eentrada de texto
+}
+
+
+form h1 {
+  color: #FFFFFF;
+  #font-family: 'Open Sans', sans-serif;
+  font-family: Audiowide;
+  font-weight: normal;
+  #border-bottom: 1px solid #000;
+  font-size: 18px;
+  padding: 15px 0;
+  position: relative;
+  text-align: center;
+  text-shadow: 0 1px 0 #000;
+}
+
+form h1.poweron {
+  color: #ffffff;
+  transition: all 0.5s;
+  animation: flicker 1s ease-in-out 1 alternate, neon 1.5s ease-in-out infinite alternate;
+  animation-delay: 0s, 1s;
+}
+
+form h1:after {
+  position: absolute;
+  width: 250px;
+  height: 180px;
+  content: "";
+  display: block;
+  pointer-events: none;
+  top: 0;
+  margin-left: 138px;
+  transform-style: flat;
+  transform: skew(20deg);
+
+  background: -moz-linear-gradient(top, hsla(0,0%,100%,0.1) 0%, hsla(0,0%,100%,0) 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,hsla(0,0%,100%,0.2)), color-stop(100%,hsla(0,0%,100%,0)));
+  background: -webkit-linear-gradient(top, hsla(0,0%,100%,0.1) 0%,hsla(0,0%,100%,0) 100%);
+  background: -o-linear-gradient(top, hsla(0,0%,100%,0.1) 0%,hsla(0,0%,100%,0) 100%);
+  background: -ms-linear-gradient(top, hsla(0,0%,100%,0.1) 0%,hsla(0,0%,100%,0) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#42ffffff', endColorstr='#00ffffff',GradientType=0 );
+  background: linear-gradient(to bottom, hsla(0,0%,100%,0.1) 0%,hsla(0,0%,100%,0) 100%);
+
+}
+
+input[type=text], input[type=password] {
+  background: linear-gradient(#1f2124,#27292c);
+  border: 1px solid #222;
+  border-radius: .3em;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.1);
+  color: #FFF;
+  font-size: 13px;
+  margin-bottom: 20px;
+  padding: 8px 5px;
+  width: 100%;
+}
+
+
+input[type=text]:disabled, input[type=password]:disabled {
+	color: #999;
+}
+
+label[for=remember] {
+  color: #bbb;
+  display: inline-block;
+  height: 20px;
+  line-height: 20px;
+  vertical-align: top;
+  padding: 0 0 0 5px;
+}
+
+.p-container {
+  padding: 0 20px 20px;
+}
+
+.p-container:after {
+  clear: both;
+  content: "";
+  display: table;
+}
+
+.p-container span {
+  color: #0d93ff;
+  display: block;
+  float: left;
+  padding-top: 8px;
+}
+
+input[type=submit] {
+  background: #C0C0C0;
+  border: 1px solid rgba(0,0,0,0.4);
+  border-radius: .3em;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), inset 0 10px 10px rgba(255,255,255,0.1);
+  color: #FFFFFF;
+  cursor: pointer;
+  font-family: Audiowide;
+  font-size: 13px;
+  font-weight: bold;
+  height: 40px;
+  padding: 5px 20px;
+  width: 100%;
+
+}
+
+
+@keyframes neon {
+  from {
+    text-shadow:
+    0 0 2.5px #fff,
+    0 0 5px #fff,
+    0 0 7.5px #fff,
+    0 0 10px #B6FF00,
+    0 0 17.5px #B6FF00,
+    0 0 20px #B6FF00,
+    0 0 25px #B6FF00,
+    0 0 37.5px #B6FF00;
+  }
+
+  to {
+      text-shadow:
+      0 0 3px #fff,
+      0 0 7px  #fff,
+      0 0 13px  #fff,
+      0 0 17px  #B6FF00,
+      0 0 33px  #B6FF00,
+      0 0 38px  #B6FF00,
+      0 0 48px #B6FF00,
+      0 0 63px #B6FF00;
+    }
+}
+
+@keyframes flicker {
+  0% {
+    text-shadow:
+    0 0 2.5px #fff,
+    0 0 5px #fff,
+    0 0 7.5px #fff,
+    0 0 10px #B6FF00,
+    0 0 17.5px #B6FF00,
+    0 0 20px #B6FF00,
+    0 0 25px #B6FF00,
+    0 0 37.5px #B6FF00;
+  }
+
+  2% {
+    text-shadow: none;
+  }
+
+  8% {
+    text-shadow:
+    0 0 2.5px #fff,
+    0 0 5px #fff,
+    0 0 7.5px #fff,
+    0 0 10px #B6FF00,
+    0 0 17.5px #B6FF00,
+    0 0 20px #B6FF00,
+    0 0 25px #B6FF00,
+    0 0 37.5px #B6FF00;
+  }
+
+  10% {
+    text-shadow: none;
+  }
+
+  20% {
+    text-shadow:
+    0 0 2.5px #fff,
+    0 0 5px #fff,
+    0 0 7.5px #fff,
+    0 0 10px #B6FF00,
+    0 0 17.5px #B6FF00,
+    0 0 20px #B6FF00,
+    0 0 25px #B6FF00,
+    0 0 37.5px #B6FF00;
+  }
+
+  22% {
+    text-shadow: none;
+  }
+
+  24% {
+    text-shadow:
+    0 0 2.5px #fff,
+    0 0 5px #fff,
+    0 0 7.5px #fff,
+    0 0 10px #B6FF00,
+    0 0 17.5px #B6FF00,
+    0 0 20px #B6FF00,
+    0 0 25px #B6FF00,
+    0 0 37.5px #B6FF00;
+  }
+
+  28% {
+    text-shadow: none;
+  }
+
+  32% {
+    text-shadow:
+    0 0 2.5px #fff,
+    0 0 5px #fff,
+    0 0 7.5px #fff,
+    0 0 10px #B6FF00,
+    0 0 17.5px #B6FF00,
+    0 0 20px #B6FF00,
+    0 0 25px #B6FF00,
+    0 0 37.5px #B6FF00;
+  }
+
+  34% {
+    text-shadow: none;
+  }
+
+  36% {
+    text-shadow: none;
+  }
+
+  42% {
+    text-shadow: none;
+  }
+
+  100% {
+    text-shadow:
+    0 0 2.5px #fff,
+    0 0 5px #fff,
+    0 0 7.5px #fff,
+    0 0 10px #B6FF00,
+    0 0 17.5px #B6FF00,
+    0 0 20px #B6FF00,
+    0 0 25px #B6FF00,
+    0 0 37.5px #B6FF00;
+  }
+}
+
+/* LIstas ordenadas */
+ol {
+list-style: none;
+}
+ol li {
+padding: 8px 10px;
+color: #111;
+}
+ol li:nth-child(odd) { /* filas pares */
+background-color: #f5f5f5;
+}
+ol li:nth-child(even) { /* filas impares */
+background-color: #e5e5e5;
+}
+
+/* Tablas */
+
+
+table {
+	width: 900px;
+	border-collapse: collapse;
+	overflow: hidden;
+	box-shadow: 0 0 20px rgba(0,0,0,0.1);
+
+}
+
+th,
+td {
+	padding: 5px;
+	background-color: #C0C0C0;
+	color: #fff;
+}
+
+th {
+	text-align: left;
+}
+
+thead {
+	th {
+		background-color: #55608f;
+	}
+}
+
+tbody {
+	tr {
+		&:hover {
+			background-color: rgba(255,255,255,0.3);
+		}
+	}
+	td {
+		position: relative;
+		&:hover {
+			&:before {
+				content: "";
+				position: absolute;
+				left: 0;
+				right: 0;
+				top: -9999px;
+				bottom: -9999px;
+				background-color: rgba(255,255,255,0.2);
+				z-index: -1;
+			}
+		}
+	}
+}
