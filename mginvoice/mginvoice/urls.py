@@ -24,4 +24,4 @@ urlpatterns = [
     path('', include('acc.urls')),
 ]
 
-handler404 = "acc.views.l_error_404"
+handler404 = "acc.views.error_404"

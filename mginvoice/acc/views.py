@@ -89,6 +89,6 @@ def error_500(solicitud, excepción):
 '''
 
 
-def l_error_404(request, exception):
+def error_404(request, exception):
     nombre_template = 'comm/404.html'
     return render(request, 'comm/404.html')

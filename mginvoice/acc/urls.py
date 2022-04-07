@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from django.conf.urls import handler400, handler403, handler404, handler500
+#from django.conf.urls import handler400, handler403, handler404, handler500
 #from acc.views import error_404
 
 urlpatterns = [
