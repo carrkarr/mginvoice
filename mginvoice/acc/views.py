@@ -3,8 +3,6 @@ from django.contrib.auth import authenticate, login, logout, update_session_auth
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
 from django.contrib import messages 
 from .forms import SignUpForm, EditProfileForm 
-from django.views.defaults import page_not_found
-
 
 # Create your views here.
 def home(request): 
@@ -62,7 +60,6 @@ def edit_profile(request):
 	#return render(request, 'authenticate/edit_profile.html',{})
 
 
-
 def change_password(request):
 	if request.method =='POST':
 		form = PasswordChangeForm(data=request.POST, user= request.user)
@@ -77,18 +74,11 @@ def change_password(request):
 	context = {'form': form}
 	return render(request, 'acc/change_password.html', context)
 
-#def error_404(solicitud, excepción):
-#        return render(solicitud, '404.html')
-'''def error_403(solicitud, excepción):
-        return render(solicitud, '403.html')
-def error_400(solicitud, excepción):
-        return render(solicitud, '400.html')
-def error_500(solicitud, excepción):
-        return render(solicitud, '500.html')
-
-'''
-
-
 def error_404(request, exception):
-    nombre_template = 'comm/404.html'
     return render(request, 'comm/404.html')
+def error_403(request, exception):
+    return render(request, 'comm/403.html')
+def error_400(request, exception):
+    return render(request, 'comm/400.html')
+def error_500(request):
+    return render(request, 'comm/500.html')
