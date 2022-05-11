@@ -1,15 +1,132 @@
-{% extends 'comm/base.html' %}
+{% load static %}
+<!DOCTYPE HTML>
+<html lang="es">
 
-{% block content %}
+{% block encabezado %}
 
-<h1> Home page</h1>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-{% if user.is_authenticated %}
-	<p>Name: {{user.first_name}} {{ user.last_name}}</p>
-	<p>Username: {{user.username}}</p>
-	
-	<p>Email: {{user.email}}</p>
+   <title >MGINVOICE: INVOICE MANAGEMENT</title
 
-{% endif %}
+    <!-- Bootstrap  CSS -->
+    <link href=" {% static 'css/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
 
+    <!-- Fonts -->
+    <link href="{% static 'font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+	<link href="{% static 'css/nivo-lightbox.css' %}" rel="stylesheet" />
+	<link href="{% static 'css/nivo-lightbox-theme/default/default.css' %}" rel="stylesheet" type="text/css" />
+	<link href="{% static 'css/animate.css' %}" rel="stylesheet" />
+    <!-- Squad theme CSS -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+	<link href="{% static 'color/default.css' %}" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="  {% static 'css/estilos.css' %}">
+
+</head>
 {% endblock %}
+
+<body data-spy="scroll" style="background-image:url({% static 'img/finanzas_bg.jpg' %});">
+
+	<section id="intro" class="intro">
+
+    {% include 'comm/headernav.html' %}
+
+	
+		<div class="container" id="login">
+
+      <img id="img-inicio" src="{{STATIC_URL}}img/img-bg.jpg">
+
+
+      <div class="container" id="login">
+  
+  
+      <div style="position:absolute;top:55px;left:465px;color: #fff;font-size:75px;line-height:1.2em; display:block;letter-spacing:-2px; " >
+  
+        <h>Invoice</h>
+  
+       </div>
+  
+        <div style="position:absolute;top:115px;left:630px;color: #1BA620;font-size:75px;line-height:1.2em; display:block;letter-spacing:-2px; " >
+  
+        <h> Management</h>
+  
+        </div>
+  
+  
+
+<section class="main row">
+
+	<!-- col-xs-12 col-sm-12 col-md-12 col-lg-12-->
+	<!-- pequeño, medio pequeño, mediano, grande -->
+	<article class="col-md-4"></article>
+	<article class="col-md-6 col-xs-12">
+
+	{% if user.is_authenticated == False %}
+
+		<form class="form-horizontal" method="post" action="menu/">
+		      {% csrf_token %}
+
+			<div class="form-group">
+				<label for="inputEmail3" class="col-sm-2 control-label" style="color:#FFFFFF; font-size:18px;">Usuario</label>
+				<div class="col-sm-6 col-md-6">
+				  <input type="text" name="username" class="form-control" id="inputEmail3" placeholder="Nombre de Usuario">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="inputPassword3" class="col-sm-2 control-label" style="color:#FFFFFF; font-size:18px;">Clave</label>
+				<div class="col-sm-6 col-md-6">
+				  <input type="password" name="password" class="form-control" id="inputPassword3" placeholder="Password">
+				</div>
+			</div>
+			 <div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+
+				  <div class="checkbox">
+					<label style="color:#FFFFFF;">
+					  <input type="checkbox"> Recordarme
+					</label>
+					  <!-- tener en cuenta el checkbox para recordar la sesion -->
+						<button type="submit" class="btn btn-primary">  Ingresar Al Sistema  </button>
+
+				  </div>
+
+				</div>
+			</div>
+
+
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-xs-12  col-sm-12  col-md-10">
+					<br/>
+					<br/>
+					<br/>
+					<label style="color:#FFFFFF;font-size:16px;">
+						¿Olvidaste la clave? <a href="/password_reset" style="color:#1BA620;">Obtener clave</a>
+					</label>
+				</div>
+			</div>
+
+			
+		</form>
+
+		{% endif %}
+
+
+
+			<br>
+	</article>
+</section>
+</div>
+
+</section>
+
+</body>
+
+{% include 'comm/footer.html' %}
+
+</html>
+

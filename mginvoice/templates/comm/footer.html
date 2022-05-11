@@ -1,0 +1,37 @@
+{% load static %}
+
+{% block footer %}
+
+<!-- <section style= "background-color: #1BA620;">
+
+style="background-image:url({ static 'img/bg-foot.jpg' %});"
+-->
+    <footer style="background-image:url({% static 'img/bg-foot.jpg' %});">
+
+        <p><a href="#"><img  src="{% static 'img/ArrowUp.png' %}"  /></a></p>
+
+        <p>Copyright &copy; <a target="_blank" href="#">xxxxxxx</a> All Rights Reserved<br></p>
+        <p>Design by <a target="_blank" href="#">XXX S.A. De C.V.</a></p>
+        <p> Las marcas o productos aquí anunciados, son propiedad  de sus respectivos propietarios. </p>
+
+
+    </footer>
+
+{% endblock %}
+
+<!-- scripts -->
+
+{% block script %}
+
+    <!-- Core JavaScript Files -->
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/jquery.easing.min.js' %}"></script>
+	<script src="{% static 'js/classie.js' %}"></script>
+	<script src="{% static 'js/gnmenu.js' %}"></script>
+	<script src="{% static 'js/jquery.scrollTo.js' %}"></script>
+	<script src="{% static 'js/nivo-lightbox.min.js' %}"></script>
+	<script src="{% static 'js/stellar.js' %}"></script>
+    <!-- Custom Theme JavaScript -->
+    <script src="{% static 'js/custom.js' %}"></script>
+
+{% endblock %}

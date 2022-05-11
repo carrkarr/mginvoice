@@ -1,27 +1,44 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash 
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
 from django.contrib import messages 
 from .forms import SignUpForm, EditProfileForm 
+
+from django.shortcuts import render, redirect
+from django.core.mail import send_mail, BadHeaderError
+from django.http import HttpResponse
+from django.contrib.auth.forms import PasswordResetForm
+from django.contrib.auth.models import User
+from django.utils.http import urlsafe_base64_encode
+from django.contrib.auth.tokens import default_token_generator
+from django.utils.encoding import force_bytes
+from django.contrib import messages #import messages
+from django.template.loader import render_to_string
+from django.db.models.query_utils import Q
+from mginvoice.settings import EMAIL_HOST_USER
+
 
 # Create your views here.
 def home(request): 
 	return render(request, 'comm/home.html', {})
 
-def login_user (request):
-	if request.method == 'POST': #if someone fills out form , Post it 
+#@login_required()
+def menu_user(request):
+	if request.method == 'POST': #if someone fills out form , Post it
 		username = request.POST['username']
 		password = request.POST['password']
 		user = authenticate(request, username=username, password=password)
 		if user is not None:# if user exist
 			login(request, user)
-			messages.success(request,('Youre logged in'))
-			return redirect('home') #routes to 'home' on successful login  
+			#messages.success(request,('Youre logged in'))
+			return render(request, 'acc/login.html', {})
 		else:
-			messages.success(request,('Error logging in'))
-			return redirect('login') #re routes to login page upon unsucessful login
+			#messages.success(request,('Error logging in'))
+			return redirect('home') #re routes to login page upon unsucessful login
 	else:
-		return render(request, 'acc/login.html', {})
+		return render(request, 'comm/home.html', {})
+
 
 def logout_user(request):
 	logout(request)
@@ -73,6 +90,29 @@ def change_password(request):
 
 	context = {'form': form}
 	return render(request, 'acc/change_password.html', context)
+
+def password_reset_request(request):
+	if request.method == "POST":
+		password_reset_form = PasswordResetForm(request.POST)
+		if password_reset_form.is_valid():
+			data = password_reset_form.cleaned_data['email']
+			associated_users = User.objects.filter(Q(email=data))
+			if associated_users.exists():
+				for user in associated_users:
+					subject = "Password Reset Requested"
+					email_template_name = "acc/password_reset_email.txt"
+					try:
+						send_mail(subject,'AWS_verified_email_address', EMAIL_HOST_USER, [user.email], fail_silently=False)
+					except BadHeaderError:
+
+						return HttpResponse('Invalid header found.')
+						
+					messages.success(request, 'A message with reset password instructions has been sent to your inbox.')
+					return redirect ("acc:home")
+			messages.error(request, 'An invalid email has been entered.')
+	password_reset_form = PasswordResetForm()
+	return render(request=request, template_name="acc/password_reset.html", context={"password_reset_form":password_reset_form})
+
 
 def error_404(request, exception):
     return render(request, 'comm/404.html')

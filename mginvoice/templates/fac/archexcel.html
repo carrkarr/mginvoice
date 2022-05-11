@@ -1,0 +1,68 @@
+{% extends "comm/base.html" %}
+{% load static %}
+
+{% block titulo %}Importar Facturas{% endblock %}
+
+<body>
+
+
+{% block bodyini %}
+
+<section>
+
+    <h2 style="color: #fff; text-align: center">Archivos Para Importar Facturas</h2>
+
+
+    <script type="text/javascript">
+            function cargar(){
+                    var barra = document.getElementById('barra')
+                    barra.value +=1
+                    }
+    </script>
+
+<div class="progress">
+
+    <progress  value=0 max=100 id="barra" class="progress"  style="width: 100%"></progress>
+
+</div>
+
+	<article class="col-md-3"><div id="cajaArriba" style="display: none;"></div>
+    </article>
+
+    <article class="col-md-6">
+		<ul class="nav nav-tabs nav-justified well">
+
+            {% if user.is_authenticated %}
+
+            <form action="{% url 'act_load_fac' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                {{ form.as_p }}
+                <br>
+
+                {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+
+                <button type="submit" class="btn btn-primary" onclick="setInterval('cargar()',670)">  Importar Inf.</button>
+                <a clas="btn_r" href="/"><img align="rigth" src="{% static 'img/back_arrow.ico' %}"></a>      
+            </form>
+
+            {% else %}
+            {% endif %}
+    </ul>
+    </article>
+
+{% endblock %}
+
+<img id="img-inicio" src="{{STATIC_URL}}img/img-bg.jpg">
+
+</section>
+
+</body>
+
