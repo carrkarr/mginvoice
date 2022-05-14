@@ -85,7 +85,7 @@ def act_load_fac(request):
 
             #dbframe.to_csv(header=None,index=False)
 
-            return render(request, 'fac/archexcel.html',{'form': form})
+
             for i in range(len(dbframe)):
 
                 #Receptor dbframe.iloc[i,0] dbframe.iloc[i,1]
