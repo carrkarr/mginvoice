@@ -60,6 +60,18 @@ def act_load_fac(request):
             #empexceldata = pd.read_csv(myfile)
 
             dbframe = empexceldata
+            #Leo el encabezado
+            # ['NOMBRE RECEPTOR', 'RFC', 'Folio', 'NOMBRE DE EMISOR', 'RFC EMISOR', 'TIPO DE DOCUMENTO', 'FECHA DE EMISION', 'MONEDA', 'ESTADO', ' SUBTOTAL ', ' TOTAL ', ' IVA ', 'AFILIADO']
+            list_header = dbframe.columns.values.tolist()
+
+            if len(list_header) != 13:
+                messages.error(request, 'El archivo a cargar debe de tener 13 columnas')
+                return render(request, 'fac/archexcel.html',{'form': form})
+
+            #Verifico que el orden d elas columnas coincidan
+            if  list_header[0] !='NOMBRE RECEPTOR' or list_header[1] !='RFC' or list_header[2] != 'Folio' or list_header[3] != 'NOMBRE DE EMISOR' or list_header[4] != 'RFC EMISOR' or list_header[5] != 'TIPO DE DOCUMENTO' or list_header[6] != 'FECHA DE EMISION' or list_header[7] != 'MONEDA' or list_header[8] != 'ESTADO' or list_header[9] != ' SUBTOTAL ' or list_header[10] != ' TOTAL ' or list_header[11] != ' IVA ' or list_header[12] != 'AFILIADO':
+                messages.error(request, 'El archivo no tiene el orden de las columnas')
+                return render(request, 'fac/archexcel.html',{'form': form})
 
             #Solo cargo de la 0 - 10 donde NO deben de haber nulos
             dbframe_nonull = dbframe.iloc[:,0:11] #Returns a new dataframe with first ten columns
@@ -71,9 +83,11 @@ def act_load_fac(request):
                 messages.error(request, 'Hay valores nulos, verificar su archivo')
                 return render(request, 'fac/archexcel.html',{'form': form})
 
-            dbframe.to_csv(header=None,index=False)
+            #dbframe.to_csv(header=None,index=False)
 
+            return render(request, 'fac/archexcel.html',{'form': form})
             for i in range(len(dbframe)):
+
                 #Receptor dbframe.iloc[i,0] dbframe.iloc[i,1]
                 obj_rec, created = Ereceptora.objects.filter(
                                 Q(RFC=dbframe.iloc[i,1]),
