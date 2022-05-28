@@ -3,8 +3,8 @@ from django.db.models import Sum
 from django.shortcuts import redirect
 from django.template import RequestContext
 from django.shortcuts import render
-from fac.forms import CargaFacForm
-
+from django.views.generic import ListView
+from fac.forms import CargaFacForm, FacturaForm
 import datetime as dt
 
 import pandas as pd
@@ -21,6 +21,10 @@ import os
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 
+import django_tables2 as tables
+from django.views.generic.base import View
+
+
 
 @login_required()
 def upload_fac(request):
@@ -28,7 +32,7 @@ def upload_fac(request):
         if request.method == 'POST' and request.FILES['myfile']:
 
             form = CargaFacForm(request.POST)
- 
+
             return render(request, 'fac/archexcel.html',{'form': form})
     except Exception as identifier:
         print(identifier)
@@ -153,3 +157,71 @@ def act_load_fac(request):
 
     form = CargaFacForm()
     return render(request, 'fac/archexcel.html',{'form': form})
+
+# *********************************************************
+# *********************************************************
+
+def create_fac(request):  
+    if request.method == "POST":  
+        form = FacturaForm(request.POST)  
+        if form.is_valid():  
+            try:  
+                form.save()  
+                return redirect('create_fac.html')  
+            except:  
+                pass 
+    else:  
+        form = FacturaForm()  
+    return render(request,'fac/create_fac.html',{'form':form})
+
+
+class CustomTemplateColumn(tables.TemplateColumn):
+    def render(self, record, table, value, bound_column, **kwargs):
+         if str (record.grade) == "G2":
+             return ''
+         return super(CustomTemplateColumn, self).render(record, table, value, bound_column, **kwargs)
+
+class list_fac_view(ListView):
+
+    model = Facturas
+    template_name = 'fac/list_fac.html'
+
+    def get(self, request):
+        list_fac = Facturas.objects.all().order_by("-ID_FACTURA")
+        context = {
+            "list_fac": list_fac
+        }
+        return render(request, "fac/list_fac.html", context=context)
+
+
+        """_
+        
+class list_fac_view(ListView):
+    model = Facturas
+    template_name = 'fac/list_fac.html'
+
+    def get_context_data(self, request):
+
+        #context = super(list_fac_view, self).get_context_data(*args, **kwargs)
+        #return context
+        list_fac = Facturas.objects.all()
+        return render(request,'fac/list_fac.html',{'list_fac':list_fac})
+
+#    list_fac = Facturas.objects.all()
+    #return render(request,'fac/list_fac.html',{'list_fac':list_fac})
+"""
+
+
+def update_fac(request):
+    id = 1
+    fac = Facturas.objects.get(id=id)
+    context = {"fac": fac}
+    return render(request, 'fac/update_fac.html', context)
+
+class update_fac_view(View):
+
+    def get(self, request, id):
+
+        context_data = {"fac":Facturas.objects.get(id=id)}
+
+        return render(request,'fac/update_fac.html',context_data)

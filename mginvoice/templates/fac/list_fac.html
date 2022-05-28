@@ -1,0 +1,37 @@
+{% extends 'comm/base.html' %}
+
+{% block title %}Invoice List{% endblock title %}
+
+{# tutorial/templates/tutorial/people.html #}
+{% load render_table from django_tables2 %}
+
+<body>
+
+    {% block bodyini %}
+    
+
+<h2 style="color: #fff; text-align: center">Invoice List<h2>
+
+<form action="{% url 'find_fac' %}" method="get">
+<div class="form-group">
+<div class="col-xs-4">
+
+    <input type="text" class="form-control" name="q" placeholder="Find Invoice " />
+
+</div>
+    <button type="submit" class="btn btn-primary">Find</button>
+ </div>
+</form>
+
+
+<div style="background-color:LightGray;color:black;font-size:12px;">
+
+    {% render_table object_list %}
+
+</div>
+
+{% endblock %}
+    
+
+
+</body>

@@ -2,6 +2,8 @@ from django.db import models
 from django.db.models import UniqueConstraint
 
 from django.contrib.auth.models import User
+from django.urls import reverse
+import django_tables2 as tables
 
 # Create your models here.
 class Eemisora(models.Model):
@@ -61,6 +63,9 @@ class Facturas(models.Model):
     ID_AFILIADO = models.ForeignKey(Afiliado, on_delete=models.RESTRICT, null=True, default=0)
     TIPO_CAMBIO = models.DecimalField(default=0.00, max_digits=9, decimal_places=2)
     usuario = models.ForeignKey(User, on_delete=models.CASCADE,)
+    template = '''<a href="{{record.get_absolute_url}}" ">click here</a>'''
+    fac_detail = tables.TemplateColumn(template,verbose_name=u'Order details',orderable=False,)
+
 
     # Metadata
     class Meta:
@@ -73,3 +78,5 @@ class Facturas(models.Model):
     def __str__(self):
         return self.FOLIO
 
+    def get_absolute_url(self):
+        return reverse("fac:update_fac_view", kwargs={'id': self.id})

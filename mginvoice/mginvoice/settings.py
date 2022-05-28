@@ -81,7 +81,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'import_export',
+    'django_tables2',
+    #'import_export',
     'acc',
     'fac',
 
@@ -141,7 +142,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-DATE_INPUT_FORMATS = ['%d/%m/%Y',]
+DATE_INPUT_FORMATS = ['%Y-%m-%d']
+
 
 LANGUAGE_CODE = 'en-us'
 

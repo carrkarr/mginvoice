@@ -1,0 +1,48 @@
+{% extends "comm/base.html" %}
+{% load static %}
+
+{% block titulo %}Create Invoice{% endblock %}
+
+<body>
+
+    {% block bodyini %}
+    
+    <section>
+    
+        <h2 style="color: #fff; text-align: center">Create Invoice<h2>
+        <article class="col-md-3"><div id="cajaArriba" style="display: none;"></div>
+        </article>
+    
+        <article class="col-md-6">
+            <ul class="nav nav-tabs nav-justified well">
+    
+                {% if user.is_authenticated %}
+    
+                <form action="{% url 'create_fac' %}" method="post" enctype="multipart/form-data">
+
+                      {% csrf_token %}
+                      <div>
+                            
+                      {{ form.as_ul }}
+
+
+                            
+
+                            </div>
+
+
+                        <button type="submit" class="btn btn-primary">  Save</button>
+                    <a clas="btn_r" href="/"><img align="rigth" src="{% static 'img/back_arrow.ico' %}"></a>      
+                </form>
+                {% endif %}
+        </ul>
+        </article>
+    
+    {% endblock %}
+    
+    <img id="img-inicio" src="{{STATIC_URL}}img/img-bg.jpg">
+    
+    </section>
+    
+    </body>
+ 
