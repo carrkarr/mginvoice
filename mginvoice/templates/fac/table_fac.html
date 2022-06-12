@@ -1,0 +1,49 @@
+{# templates/fac/table_fac.html #}
+
+<div id='list_fac'>
+
+        <div style="background-color:LightGray;color:black;font-size:12px;">
+         
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+    
+        <table>
+            <thead>
+                <tr>
+                  <th>Num. Reg.</th>
+                  <th>EMISORA</th>
+                  <th>FOLIO DOCTO.</th>
+                  <th>SERIE</th>
+                </tr>
+            </thead>
+        <tbody>
+        
+        {% for fac in fac_list %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ fac.ID_EMISOR }}</td>
+            <td>{{ fac.FOLIO }}</td>
+            <td>{{ fac.SERIE }}</td>
+            <td><a class="block mr-2 hover:text-gray-600"
+              hx-delete="{% url 'del_fac' fac.ID_FACTURA %}"
+              hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+              hx-confirm="Are you sure you want to delete this invoice?"
+              hx-target="#list_fac"
+              hx-swap="outerHTML"> Delete?</a></td>
+        </tr>
+
+        </li>
+
+          </div>
+          
+          {% empty %}
+          <tr>
+            <td colspan="2">
+              No invoice on this page.
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+        </table>
+    </div>
+   
+

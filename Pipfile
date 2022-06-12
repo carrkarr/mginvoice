@@ -5,6 +5,9 @@ name = "pypi"
 
 [packages]
 django = "==3.2.12"
+django-filter = "*"
+django-crispy-forms = "*"
+django-htmx = "*"
 
 [dev-packages]
 

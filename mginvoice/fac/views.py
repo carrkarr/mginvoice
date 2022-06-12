@@ -22,9 +22,16 @@ from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 
 import django_tables2 as tables
+from django_tables2 import RequestConfig
 from django.views.generic.base import View
 
+from django_tables2 import SingleTableMixin
+from django_filters.views import FilterView
 
+from .tables import FacHTMxTable
+from .filters import FacFilter
+
+from django.views.decorators.http import require_http_methods
 
 @login_required()
 def upload_fac(request):
@@ -174,43 +181,53 @@ def create_fac(request):
         form = FacturaForm()  
     return render(request,'fac/create_fac.html',{'form':form})
 
+#*************************************
 
-class CustomTemplateColumn(tables.TemplateColumn):
-    def render(self, record, table, value, bound_column, **kwargs):
-         if str (record.grade) == "G2":
-             return ''
-         return super(CustomTemplateColumn, self).render(record, table, value, bound_column, **kwargs)
+#************************************
+    """_
+class list_fac_view(SingleTableMixin, FilterView):
 
-class list_fac_view(ListView):
+    table_class = FacHTMxTable
+    queryset = Facturas.objects.all()
+    filterset_class = FacFilter
+    paginate_by = 2
 
-    model = Facturas
-    template_name = 'fac/list_fac.html'
+    def get_template_names(self):
+        #if self.request.htmx:
+        #    template_name = "fac/list_fac_partial.html"
+        #else:
+        #    template_name = "fac/list_fac_all.html"
+        template_name = "fac/list_fac.html"
+        return template_name
 
-    def get(self, request):
-        list_fac = Facturas.objects.all().order_by("-ID_FACTURA")
-        context = {
-            "list_fac": list_fac
-        }
-        return render(request, "fac/list_fac.html", context=context)
+@require_http_methods(['DELETE'])
+def delete_fac(request, id):
+    # remove the invoice from the user's list
+    request.user.films.remove(pk)
+    request.Fac
 
+    # return the template fragment
+    films = request.user.films.all()
+    return render(request, 'partials/film-list.html', {'films': films})
 
-        """_
-        
-class list_fac_view(ListView):
-    model = Facturas
-    template_name = 'fac/list_fac.html'
+    _
+    """
 
-    def get_context_data(self, request):
+def list_fac_view(request):
+    fac_list = Facturas.objects.all()
+    return render(request, 'fac/list_fac.html', {'fac_list': fac_list})
 
-        #context = super(list_fac_view, self).get_context_data(*args, **kwargs)
-        #return context
-        list_fac = Facturas.objects.all()
-        return render(request,'fac/list_fac.html',{'list_fac':list_fac})
+#***********************************
+#***********************************
 
-#    list_fac = Facturas.objects.all()
-    #return render(request,'fac/list_fac.html',{'list_fac':list_fac})
-"""
+@require_http_methods(['DELETE'])
+def delete_fac(request, id):
+    Facturas.objects.filter(ID_FACTURA=id).delete()
+    fac_list = Facturas.objects.all()
+    return render(request, 'fac/table_fac.html', {'fac_list': fac_list})
 
+#***********************************
+#***********************************
 
 def update_fac(request):
     id = 1

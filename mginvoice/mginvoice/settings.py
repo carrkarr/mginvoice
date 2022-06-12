@@ -82,6 +82,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_tables2',
+    'django_filters',
+    'django_htmx',
+    'crispy_forms',
     #'import_export',
     'acc',
     'fac',
@@ -96,6 +99,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django_htmx.middleware.HtmxMiddleware",
 ]
 
 ROOT_URLCONF = 'mginvoice.urls'
@@ -138,6 +142,8 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+CRISPY_TEMPLATE_PACK = 'uni_form'
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/

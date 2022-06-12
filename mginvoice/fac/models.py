@@ -48,6 +48,11 @@ class Afiliado(models.Model):
         return self.NOMBRE_ALIAS
 
 class Facturas(models.Model):
+    class Status(models.IntegerChoices):
+        ACTIVE = 1, "Active"
+        INACTIVE = 2, "Inactive"
+        ARCHIVED = 3, "Archived"
+
     ID_FACTURA = models.AutoField(primary_key=True, unique=True)
     ID_EMISOR = models.ForeignKey(Eemisora, on_delete=models.RESTRICT, null=False)
     FOLIO = models.CharField(max_length=30 , default="")
@@ -80,3 +85,4 @@ class Facturas(models.Model):
 
     def get_absolute_url(self):
         return reverse("fac:update_fac_view", kwargs={'id': self.id})
+        

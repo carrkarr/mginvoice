@@ -1,0 +1,64 @@
+{% extends 'comm/base.html' %}
+
+{% block title %}Invoice List{% endblock title %}
+
+{# tutorial/templates/tutorial/people.html #}
+{% load render_table from django_tables2 %}
+
+<body>
+
+    {% block bodyini %}
+    
+
+<h2 style="color: #fff; text-align: center">Invoice List<h2>
+
+<form action="{% url 'find_fac' %}" method="get">
+<div class="form-group">
+<div class="col-xs-4">
+
+    <input type="text" class="form-control" name="q" placeholder="Find Invoice " />
+
+</div>
+    <button type="submit" class="btn btn-primary">Find</button>
+ </div>
+</form>
+
+
+<div style="background-color:LightGray;color:black;font-size:12px;">
+
+    {% render_table object_list %}
+
+</div>
+
+{% endblock %}
+    
+
+
+</body>
+
+< body >
+< br / >< / br / >
+< div clase = "envase" >
+< div clase = "col-md-8 offset-md-2" >
+{ % you consult% }
+< h2 >
+{ % con results.count as total_results% }
+Found { { total_results } } result { { total_results | pluralize } }
+{ % end with % }
+< / h2 >
+{ % by c in results % }
+< a href = "{{c.get_url}}" >< h3 > { { c.book_name } } < / h3 >< / a >
+< h3 > { { c.author_name } } < / h3 >
+{ % empty % }
+< h3 > No results found. < / h3 >
+{ % endfor% }
+{ % will terminate if % }
+< form action = "{% url 'book_list'%}" class = "inline form" method = "get" >
+< botón escribe = "deliver" clase = "btn btn-primary btn-lg mb-2" > Volver < / botón >
+< / formulario >
+< / div >
+< / div >
+
+< / body >
+
+< html > 
