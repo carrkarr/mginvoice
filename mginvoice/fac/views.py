@@ -32,6 +32,8 @@ from .tables import FacHTMxTable
 from .filters import FacFilter
 
 from django.views.decorators.http import require_http_methods
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 
 @login_required()
 def upload_fac(request):
@@ -214,28 +216,57 @@ def delete_fac(request, id):
 #***********************************
 
 def list_fac_view(request):
-    fac_list = Facturas.objects.all()
+    facturas = Facturas.objects.all()
+    page = request.GET.get('page', 1)
+    paginator = Paginator(facturas, 20)
+    try:
+        fac_list = paginator.page(page)
+    except PageNotAnInteger:
+        fac_list = paginator.page(1)
+    except EmptyPage:
+        fac_list = paginator.page(paginator.num_pages)
+
     return render(request, 'fac/list_fac.html', {'fac_list': fac_list})
 
 
 @require_http_methods(['DELETE'])
 def delete_fac(request, id):
     Facturas.objects.filter(ID_FACTURA=id).delete()
-    fac_list = Facturas.objects.all()
+    facturas = Facturas.objects.all()
+
+    page = request.GET.get('page', 1)
+    paginator = Paginator(facturas, 20)
+    try:
+        fac_list = paginator.page(page)
+    except PageNotAnInteger:
+        fac_list = paginator.page(1)
+    except EmptyPage:
+        fac_list = paginator.page(paginator.num_pages)
+
     return render(request, 'fac/table_fac.html', {'fac_list': fac_list})
 
 #***********************************
 #***********************************
 
 def find_fac(request):
-   q = request.GET.get('query')
+    q = request.GET.get('query')
 
-   if q:
-       fac_list = Facturas.objects.filter(FOLIO__icontains=q)
-   else:
-       fac_list = Facturas.objects.all()
+    if q:
+        facturas = Facturas.objects.filter(FOLIO__icontains=q)
+    else:
+        facturas = Facturas.objects.all()
 
-   return render(request, 'fac/list_fac.html', {'fac_list': fac_list})
+    page = request.GET.get('page', 1)
+    paginator = Paginator(facturas, 20)
+    try:
+        fac_list = paginator.page(page)
+    except PageNotAnInteger:
+        fac_list = paginator.page(1)
+    except EmptyPage:
+        fac_list = paginator.page(paginator.num_pages)
+
+    return render(request, 'fac/list_fac.html', {'fac_list': fac_list})
+
 
 #*********************************
 #*********************************
