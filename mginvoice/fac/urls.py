@@ -10,7 +10,7 @@ urlpatterns = [
  
     path('list_fac/', views.list_fac_view, name='list-fac'), # Funcion
 
-    path('find_fac/', views.list_fac_view, name='find_fac'),
+    path('find_fac/', views.find_fac, name='find_fac'),
 
     path('del_fac/<int:id>/',views.delete_fac, name='del_fac'),
 

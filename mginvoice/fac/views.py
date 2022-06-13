@@ -205,20 +205,18 @@ def delete_fac(request, id):
     # remove the invoice from the user's list
     request.user.films.remove(pk)
     request.Fac
-
-    # return the template fragment
-    films = request.user.films.all()
-    return render(request, 'partials/film-list.html', {'films': films})
-
-    _
+   
+   def list_fac_view(request):
+    fac_list = Facturas.objects.all()
+    return render(request, 'fac/list_fac.html', {'fac_list': fac_list}) _
     """
+#***********************************
+#***********************************
 
 def list_fac_view(request):
     fac_list = Facturas.objects.all()
     return render(request, 'fac/list_fac.html', {'fac_list': fac_list})
 
-#***********************************
-#***********************************
 
 @require_http_methods(['DELETE'])
 def delete_fac(request, id):
@@ -228,6 +226,20 @@ def delete_fac(request, id):
 
 #***********************************
 #***********************************
+
+def find_fac(request):
+   q = request.GET.get('query')
+
+   if q:
+       fac_list = Facturas.objects.filter(FOLIO__icontains=q)
+   else:
+       fac_list = Facturas.objects.all()
+
+   return render(request, 'fac/list_fac.html', {'fac_list': fac_list})
+
+#*********************************
+#*********************************
+
 
 def update_fac(request):
     id = 1

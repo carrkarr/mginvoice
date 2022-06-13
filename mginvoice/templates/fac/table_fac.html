@@ -13,6 +13,19 @@
                   <th>EMISORA</th>
                   <th>FOLIO DOCTO.</th>
                   <th>SERIE</th>
+
+                  <th>TIPO DOCTO</th>
+                  <th>RECEPTOR</th>
+                  <th>FECHA_EMISION</th>
+                  <th>MONEDA</th>
+                  <th>EDO. FACTURA</th>
+                  <th>SUBTOTAL</th>
+                  <th>TOTAL</th>
+                  <th>IVA</th>
+                  <th>AFILIADO</th>
+                  <th>TIPO_CAMBIO</th>
+                  <th>USUARIO</th>
+
                 </tr>
             </thead>
         <tbody>
@@ -23,10 +36,21 @@
             <td>{{ fac.ID_EMISOR }}</td>
             <td>{{ fac.FOLIO }}</td>
             <td>{{ fac.SERIE }}</td>
+            <td>{{ fac.TIPO_DOCUMENTO }}</td>
+            <td>{{ fac.ID_RECEPTOR }}</td>
+            <td>{{ fac.FECHA_EMISION }}</td>
+            <td>{{ fac.MONEDA }}</td>
+            <td>{{ fac.ESTADO_FACTURA }}</td>
+            <td>{{ fac.SUBTOTAL }}</td>
+            <td>{{ fac.TOTAL }}</td>
+            <td>{{ fac.IVA }}</td>
+            <td>{{ fac.ID_AFILIADO }}</td>
+            <td>{{ fac.TIPO_CAMBIO }}</td>
+            <td>{{ fac.usuario }}</td>
             <td><a class="block mr-2 hover:text-gray-600"
               hx-delete="{% url 'del_fac' fac.ID_FACTURA %}"
               hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
-              hx-confirm="Are you sure you want to delete this invoice?"
+              hx-confirm="Are you sure you want to delete this invoice? {{ fac.FOLIO }}"
               hx-target="#list_fac"
               hx-swap="outerHTML"> Delete?</a></td>
         </tr>
@@ -45,5 +69,6 @@
         </tbody>
         </table>
     </div>
+
    
 
