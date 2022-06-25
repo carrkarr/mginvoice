@@ -15,18 +15,29 @@
 <h2 style="color: #fff; text-align: center">Invoice List<h2>
 
     {% if user.is_authenticated %}
-
+    <section>
     <form action="{% url 'find_fac' %}" method="get">
-        <div class="form-group">
-        <div class="col-xs-4">
+       
+        <div class="col-xs-2">
             <input type="text" class="form-control" name="query" placeholder="Invoice FOLIO" />
         </div>
             <button type="submit" class="btn btn-primary">Find</button>
-        </div>
-
-        {% include "fac/table_fac.html" %}
+       
 
     </form>
+
+    <form action="{% url 'find_fac_f' %}" method="get" >
+        <div class="col-xs-2">
+            <input type="date"  class="form-control date-picker"  name="query_f" id="id-date-picker-1" type="text" data-date-format="dd-mm-yyyy" placeholder="Invoice Date" />
+        </div>
+            <button type="submit" class="btn btn-primary">Find</button>
+     
+
+    </form>
+</section>
+
+    {% include "fac/table_fac.html" %}
+
 
     {% endif %}
 

@@ -267,6 +267,24 @@ def find_fac(request):
 
     return render(request, 'fac/list_fac.html', {'fac_list': fac_list})
 
+def find_fac_f(request):
+    q = request.GET.get('query_f')
+
+    if q:
+        facturas = Facturas.objects.filter(FECHA_EMISION__icontains=q)
+    else:
+        facturas = Facturas.objects.all()
+
+    page = request.GET.get('page', 1)
+    paginator = Paginator(facturas, 20)
+    try:
+        fac_list = paginator.page(page)
+    except PageNotAnInteger:
+        fac_list = paginator.page(1)
+    except EmptyPage:
+        fac_list = paginator.page(paginator.num_pages)
+
+    return render(request, 'fac/list_fac.html', {'fac_list': fac_list})
 
 #*********************************
 #*********************************
