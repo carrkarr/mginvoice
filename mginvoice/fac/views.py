@@ -184,34 +184,9 @@ def create_fac(request):
     return render(request,'fac/create_fac.html',{'form':form})
 
 #*************************************
-
 #************************************
-    """_
-class list_fac_view(SingleTableMixin, FilterView):
 
-    table_class = FacHTMxTable
-    queryset = Facturas.objects.all()
-    filterset_class = FacFilter
-    paginate_by = 2
 
-    def get_template_names(self):
-        #if self.request.htmx:
-        #    template_name = "fac/list_fac_partial.html"
-        #else:
-        #    template_name = "fac/list_fac_all.html"
-        template_name = "fac/list_fac.html"
-        return template_name
-
-@require_http_methods(['DELETE'])
-def delete_fac(request, id):
-    # remove the invoice from the user's list
-    request.user.films.remove(pk)
-    request.Fac
-   
-   def list_fac_view(request):
-    fac_list = Facturas.objects.all()
-    return render(request, 'fac/list_fac.html', {'fac_list': fac_list}) _
-    """
 #***********************************
 #***********************************
 
