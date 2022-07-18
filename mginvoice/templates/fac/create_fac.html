@@ -20,15 +20,12 @@
     
                 <form action="{% url 'create_fac' %}" method="post" enctype="multipart/form-data">
 
-                      {% csrf_token %}
+                       {% csrf_token %}
                       <div>
-                            
-                      {{ form.as_ul }}
 
+                          {{ form.as_ul }}
 
-                            
-
-                            </div>
+                        </div>
 
 
                         <button type="submit" class="btn btn-primary">  Save</button>
