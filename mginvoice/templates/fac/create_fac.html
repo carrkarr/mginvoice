@@ -1,5 +1,6 @@
 {% extends "comm/base.html" %}
 {% load static %}
+{% load widget_tweaks %}
 
 {% block titulo %}Create Invoice{% endblock %}
 
@@ -10,7 +11,8 @@
     <section>
     
         <h2 style="color: #fff; text-align: center">Create Invoice<h2>
-        <article class="col-md-3"><div id="cajaArriba" style="display: none;"></div>
+            
+        <article class="col-md-3">
         </article>
     
         <article class="col-md-6">
@@ -21,12 +23,48 @@
                 <form action="{% url 'create_fac' %}" method="post" enctype="multipart/form-data">
 
                        {% csrf_token %}
-                      <div>
 
-                          {{ form.as_ul }}
+                       {% for hidden in form.hidden_fields %}
+                       {{ hidden }}
+                     {% endfor %}
 
-                        </div>
+                     <div>
+                        {{ form.SUBTOTAL|add_class:"form-control"|attr:"value:20"  }}
+                      </div>
+                 
+                     {% for field in form.visible_fields %}
 
+                        <i for="{{ field.id_for_label }}">{{ field.label }}</i>
+
+
+                        {% if "FECHA" in field.label %}
+
+                            {% render_field field|add_class:"form-control" size='10' type="date" data-date-format="dd-mm-yyyy" %}
+                            
+                        {% else %}
+            
+                        {% if "U" in field.label %}
+                           {% render_field field value=2.0 %}
+
+                           {% else %}
+                            {% render_field field class="form-control" placeholder=field.label %}
+                            {% endif %}
+
+                        {% endif %}
+
+                   
+ 
+                        
+
+                         {% for error in field.errors %}
+                           <span class="help-block">{{ error }}</span>
+                         {% endfor %}
+                       
+                      
+                       
+                     {% endfor %}
+
+                          <!-- {{ form.as_ul }} -->
 
                         <button type="submit" class="btn btn-primary">  Save</button>
                     <a clas="btn_r" href="/"><img align="rigth" src="{% static 'img/back_arrow.ico' %}"></a>      

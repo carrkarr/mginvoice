@@ -20,16 +20,7 @@ from django.core.exceptions import ValidationError
 import os
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
-
-import django_tables2 as tables
-from django_tables2 import RequestConfig
 from django.views.generic.base import View
-
-from django_tables2 import SingleTableMixin
-from django_filters.views import FilterView
-
-from .tables import FacHTMxTable
-from .filters import FacFilter
 
 from django.views.decorators.http import require_http_methods
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -62,17 +53,21 @@ def act_load_fac(request):
             # Esta funciona y valida que se teclee algo en la pantalla
             myfile = request.FILES.get("docfile", "Guest")
 
-            #Si trae caracteres raros no subira el archivo
             try:
+
                 #empexceldata = pd.read_csv("."+myfile,encoding='utf-8')
-                empexceldata = pd.read_csv(myfile, encoding='utf-8')
+                #empexceldata = pd.read_csv(myfile, encoding='utf-8')
+                empexceldata = pd.read_excel(myfile)
+                #empexceldata = pd.to_csv(myfile, encoding='utf-8')
+
             except Exception as identifier:
-                messages.error(request, 'Hay caracteres raros, verificar su archivo')
+                messages.error(request, 'Hay caracteres raros, verificar su archivo... ')
                 return render(request, 'fac/archexcel.html',{'form': form})
 
             #empexceldata = pd.read_csv(myfile)
 
             dbframe = empexceldata
+            #print (dbframe)
             #Leo el encabezado
             # ['NOMBRE RECEPTOR', 'RFC', 'Folio', 'NOMBRE DE EMISOR', 'RFC EMISOR', 'TIPO DE DOCUMENTO', 'FECHA DE EMISION', 'MONEDA', 'ESTADO', ' SUBTOTAL ', ' TOTAL ', ' IVA ', 'AFILIADO']
             list_header = dbframe.columns.values.tolist()
@@ -81,8 +76,9 @@ def act_load_fac(request):
                 messages.error(request, 'El archivo a cargar debe de tener 13 columnas')
                 return render(request, 'fac/archexcel.html',{'form': form})
 
+            #print (list_header)
             #Verifico que el orden d elas columnas coincidan
-            if  list_header[0] !='NOMBRE RECEPTOR' or list_header[1] !='RFC' or list_header[2] != 'Folio' or list_header[3] != 'NOMBRE DE EMISOR' or list_header[4] != 'RFC EMISOR' or list_header[5] != 'TIPO DE DOCUMENTO' or list_header[6] != 'FECHA DE EMISION' or list_header[7] != 'MONEDA' or list_header[8] != 'ESTADO' or list_header[9] != ' SUBTOTAL ' or list_header[10] != ' TOTAL ' or list_header[11] != ' IVA ' or list_header[12] != 'AFILIADO':
+            if  list_header[0] !='NOMBRE RECEPTOR' or list_header[1] !='RFC' or list_header[2] != 'Folio' or list_header[3] != 'NOMBRE DE EMISOR' or list_header[4] != 'RFC EMISOR' or list_header[5] != 'TIPO DE DOCUMENTO' or list_header[6] != 'FECHA DE EMISION' or list_header[7] != 'MONEDA' or list_header[8] != 'ESTADO' or list_header[9] != 'SUBTOTAL' or list_header[10] != 'TOTAL' or list_header[11] != 'IVA' or list_header[12] != 'AFILIADO':
                 messages.error(request, 'El archivo no tiene el orden de las columnas')
                 return render(request, 'fac/archexcel.html',{'form': form})
 
@@ -97,7 +93,6 @@ def act_load_fac(request):
                 return render(request, 'fac/archexcel.html',{'form': form})
 
             #dbframe.to_csv(header=None,index=False)
-
 
             for i in range(len(dbframe)):
 
@@ -130,9 +125,10 @@ def act_load_fac(request):
                 #"ID_EMISOR", "SERIE","FOLIO", "TIPO_DOCUMENTO"]
                 V_FOLIO=dbframe.iloc[i,2]
                 V_SERIE=V_FOLIO [ 0 ]
-                #V_FOLIO=V_FOLIO[1:]
 
-                V_FECHA_FAC=datetime.strptime(dbframe.iloc[i,6], '%d/%m/%Y')
+                #print (dbframe.iloc[i,6])
+                #print (str(dbframe.iloc[i,6])[:10])
+                V_FECHA_FAC=datetime.strptime( str(dbframe.iloc[i,6])[:10], '%Y-%m-%d')
                 V_FECHA_FAC=V_FECHA_FAC.strftime('%Y-%m-%d')
 
                 if dbframe.iloc[i,11] == dbframe.iloc[i,11]:
@@ -161,7 +157,8 @@ def act_load_fac(request):
             return render(request, 'fac/archexcel.html',{'form': form})
 
     except Exception as identifier:
-        #print(identifier)
+        print('identifier')
+        print(identifier)
         form = CargaFacForm()
 
     form = CargaFacForm()

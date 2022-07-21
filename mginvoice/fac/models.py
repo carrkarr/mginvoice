@@ -48,10 +48,6 @@ class Afiliado(models.Model):
         return self.NOMBRE_ALIAS
 
 class Facturas(models.Model):
-    class Status(models.IntegerChoices):
-        ACTIVE = 1, "Active"
-        INACTIVE = 2, "Inactive"
-        ARCHIVED = 3, "Archived"
 
     ID_FACTURA = models.AutoField(primary_key=True, unique=True)
     ID_EMISOR = models.ForeignKey(Eemisora, on_delete=models.RESTRICT, null=False)
@@ -68,10 +64,8 @@ class Facturas(models.Model):
     ID_AFILIADO = models.ForeignKey(Afiliado, on_delete=models.RESTRICT, null=True, default=0)
     TIPO_CAMBIO = models.DecimalField(default=0.00, max_digits=9, decimal_places=2)
     usuario = models.ForeignKey(User, on_delete=models.CASCADE,)
-    template = '''<a href="{{record.get_absolute_url}}" ">click here</a>'''
-    fac_detail = tables.TemplateColumn(template,verbose_name=u'Order details',orderable=False,)
 
-
+    
     # Metadata
     class Meta:
         constraints = [
@@ -83,6 +77,5 @@ class Facturas(models.Model):
     def __str__(self):
         return self.FOLIO
 
-    def get_absolute_url(self):
-        return reverse("fac:update_fac_view", kwargs={'id': self.id})
-        
+    
+

@@ -85,6 +85,7 @@ INSTALLED_APPS = [
     'django_tables2',
     'django_filters',
     'django_htmx',
+    'widget_tweaks',
     'crispy_forms',
     #'import_export',
     'acc',

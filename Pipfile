@@ -8,6 +8,9 @@ django = "==3.2.12"
 django-filter = "*"
 django-crispy-forms = "*"
 django-htmx = "*"
+django-widget-tweaks = "*"
+unicodecsv = "*"
+chardet = "*"
 
 [dev-packages]
 
