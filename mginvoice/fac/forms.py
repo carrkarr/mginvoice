@@ -16,26 +16,26 @@ class FacturaForm(forms.ModelForm):
     class Meta:
         model = Facturas
 
-        fields = ['ID_EMISOR','FOLIO','SERIE','TIPO_DOCUMENTO',
+        fields = ['ID_EMISOR','FOLIO','SERIE','ID_TIPO_DOC',
                     'ID_RECEPTOR',
                     'FECHA_EMISION',
-                    'MONEDA',
-                    'ESTADO_FACTURA','SUBTOTAL','TOTAL',
+                    'ID_MONEDA',
+                    'ID_ESTADO_FAC','SUBTOTAL','TOTAL',
                     'IVA','ID_AFILIADO','TIPO_CAMBIO','usuario' ]
 
         widgets = {
-            'ID_EMISOR': forms.Select(attrs={'class': 'form-control', 'label':'Emisor', 'required':False, }),
-            'FOLIO': forms.TextInput(attrs={'class': 'form-control'}),
-            'SERIE': forms.TextInput(attrs={'class': 'form-control'}),
-            'TIPO_DOCUMENTO': forms.TextInput(attrs={'class': 'form-control'}),
-            'ID_RECEPTOR': forms.Select(attrs={'class': 'form-control'}),
+            'ID_EMISOR': forms.Select(attrs={'class': 'form-control', 'label':'Emisor', 'required':True, }),
+            'FOLIO': forms.TextInput(attrs={'class': 'form-control', 'required':True,}),
+            'SERIE': forms.TextInput(attrs={'class': 'form-control', 'required':True,}),
+            'ID_TIPO_DOC': forms.Select(attrs={'class': 'form-control', 'label':'Tipo Docto.', 'required':True, }),
+            'ID_RECEPTOR': forms.Select(attrs={'class': 'form-control', 'required':True,}),
             'FECHA_EMISION': forms.DateInput (attrs={'class': 'date', 'placeholder': 'YYYY-mm-dd'}, format='%Y-%m-%d'),
-            'MONEDA': forms.TextInput(attrs={'class': 'form-control'}),
-            'ESTADO_FACTURA': forms.TextInput(attrs={'class': 'form-control'}),
-            'SUBTOTAL': forms.TextInput(attrs={'class': 'form-control'}),
-            'TOTAL': forms.TextInput(attrs={'class': 'form-control'}),
+            'ID_MONEDA': forms.Select(attrs={'class': 'form-control', 'required':True,}),
+            'ID_ESTADO_FAC': forms.Select(attrs={'class': 'form-control', 'label':'Edo. Factura.', 'required':True, }),
+            'SUBTOTAL': forms.TextInput(attrs={'class': 'form-control', 'required':True,}),
+            'TOTAL': forms.TextInput(attrs={'class': 'form-control', 'required':True,}),
             'IVA': forms.TextInput(attrs={'class': 'form-control'}),
             'ID_AFILIADO': forms.Select(attrs={'class': 'form-control'}),
             'TIPO_CAMBIO': forms.TextInput(attrs={'class': 'form-control'}),
-            'usuario': forms.Select(attrs={'class': 'form-control'}),
+            'usuario': forms.Select(attrs={'class': 'form-control', 'required':True,},),
         }

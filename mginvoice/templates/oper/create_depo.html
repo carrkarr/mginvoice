@@ -2,7 +2,7 @@
 {% load static %}
 {% load widget_tweaks %}
 
-{% block titulo %}Registra Factura{% endblock %}
+{% block titulo %}Registra Depósito{% endblock %}
 
 <body>
 
@@ -10,7 +10,7 @@
     
     <section>
     
-        <h2 style="color: #fff; text-align: center">Registra Factura<h2>
+        <h2 style="color: #fff; text-align: center">Registra Depósito<h2>
             
         <article class="col-md-3">
         </article>
@@ -20,7 +20,7 @@
     
                 {% if user.is_authenticated %}
     
-                <form action="{% url 'create_fac' %}" method="post" enctype="multipart/form-data">
+                <form action="{% url 'create_depo' %}" method="post" enctype="multipart/form-data">
 
                        {% csrf_token %}
 
@@ -49,9 +49,6 @@
 
                         {% endif %}
 
-                   
- 
-                        
 
                          {% for error in field.errors %}
                            <span class="help-block">{{ error }}</span>

@@ -6,7 +6,9 @@ from .models import *
 
 admin.site.register(Eemisora)
 admin.site.register(Ereceptora)
-
 admin.site.register(Afiliado)
+admin.site.register(Monedas)
+admin.site.register(TiposDoc)
+admin.site.register(EstadosFac)
 admin.site.register(Facturas)
 

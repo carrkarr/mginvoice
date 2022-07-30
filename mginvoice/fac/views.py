@@ -1,3 +1,4 @@
+from ast import Not
 from django.contrib.auth.decorators import login_required
 from django.db.models import Sum
 from django.shortcuts import redirect
@@ -44,27 +45,23 @@ def upload_fac(request):
 @login_required()
 def act_load_fac(request):
     try:
-        #and request.FILES['myfile']
         if request.method == 'POST':
 
             form = CargaFacForm(request.POST)
-            vusername = request.user  # Obtengo el usuario de la sesion y lo asigno a la variable para ser salvado.
+            vusername = request.user
+              # Obtengo el usuario de la sesion y lo asigno a la variable para ser salvado.
 
             # Esta funciona y valida que se teclee algo en la pantalla
             myfile = request.FILES.get("docfile", "Guest")
 
             try:
 
-                #empexceldata = pd.read_csv("."+myfile,encoding='utf-8')
                 #empexceldata = pd.read_csv(myfile, encoding='utf-8')
                 empexceldata = pd.read_excel(myfile)
-                #empexceldata = pd.to_csv(myfile, encoding='utf-8')
 
             except Exception as identifier:
                 messages.error(request, 'Hay caracteres raros, verificar su archivo... ')
                 return render(request, 'fac/archexcel.html',{'form': form})
-
-            #empexceldata = pd.read_csv(myfile)
 
             dbframe = empexceldata
             #print (dbframe)
@@ -92,21 +89,41 @@ def act_load_fac(request):
                 messages.error(request, 'Hay valores nulos, verificar su archivo')
                 return render(request, 'fac/archexcel.html',{'form': form})
 
-            #dbframe.to_csv(header=None,index=False)
+            #Verifico las fechas. POSICION 6***********
+            dbframe_fechas = dbframe.iloc[:, 6]
+
+            if str(dbframe_fechas.dtype)[:4] != 'date':
+               messages.error(request, 'Formato De Fechas NO es correcto!!!')
+               return render(request, 'fac/archexcel.html',{'form': form})
+            # ****************************
 
             for i in range(len(dbframe)):
 
-                #Receptor dbframe.iloc[i,0] dbframe.iloc[i,1]
-                obj_rec, created = Ereceptora.objects.filter(
+                if Ereceptora.objects.filter(RFC=dbframe.iloc[i,1]).exists() == False:
+                    #Receptor dbframe.iloc[i,0] dbframe.iloc[i,1]
+                    obj_rec, created = Ereceptora.objects.filter(
                                 Q(RFC=dbframe.iloc[i,1]),
                                 ).get_or_create(RFC=dbframe.iloc[i,1], NOMBRE=dbframe.iloc[i,0], defaults={'usuario': vusername})
+
 
                 #Receptor dbframe.iloc[i,3] dbframe.iloc[i,4]
                 obj_emi, created = Eemisora.objects.filter(
                                 Q(RFC=dbframe.iloc[i,4]),
                                 ).get_or_create(RFC=dbframe.iloc[i,4], NOMBRE=dbframe.iloc[i,3], defaults={'usuario': vusername})
 
+                #dbframe.iloc[i,5],
+                obj_tipo_doc, created = TiposDoc.objects.filter(
+                                Q(NOMBRE=dbframe.iloc[i,5]),
+                                ).get_or_create(NOMBRE=dbframe.iloc[i,5], defaults={'usuario': vusername})
 
+                obj_moneda, created = Monedas.objects.filter(
+                                Q(NOMBRE=dbframe.iloc[i,7]),
+                                ).get_or_create(NOMBRE=dbframe.iloc[i,7], defaults={'usuario': vusername})
+
+                obj_edo_fac, created = EstadosFac.objects.filter(
+                                Q(NOMBRE=dbframe.iloc[i,8]),
+                                ).get_or_create(NOMBRE=dbframe.iloc[i,8], defaults={'usuario': vusername})                
+                
                 #Afiliado dbframe.iloc[i,12]
                 # Como trae blancos evitamos los nan
                 if dbframe.iloc[i,12] == dbframe.iloc[i,12]:
@@ -137,15 +154,15 @@ def act_load_fac(request):
                     V_IVA = 0.0
 
                 obj, created = Facturas.objects.filter(
-                                Q(ID_EMISOR=obj_emi.ID_EMISOR) & Q(SERIE=V_SERIE) & Q(FOLIO=V_FOLIO) & Q(ESTADO_FACTURA=dbframe.iloc[i,8]),
+                                Q(ID_EMISOR=obj_emi.ID_EMISOR) & Q(SERIE=V_SERIE) & Q(FOLIO=V_FOLIO),
                                 ).get_or_create(ID_EMISOR      = Eemisora.objects.get(ID_EMISOR = obj_emi.ID_EMISOR),
                                                 FOLIO          = V_FOLIO,
                                                 SERIE          = V_SERIE,
-                                                TIPO_DOCUMENTO = dbframe.iloc[i,5],
+                                                ID_TIPO_DOC    = TiposDoc.objects.get(ID_TIPO_DOC = obj_tipo_doc.ID_TIPO_DOC),    #dbframe.iloc[i,5],
                                                 ID_RECEPTOR    = Ereceptora.objects.get(ID_RECEPTOR = obj_rec.ID_RECEPTOR),
                                                 FECHA_EMISION  = V_FECHA_FAC,
-                                                MONEDA         = dbframe.iloc[i,7],
-                                                ESTADO_FACTURA = dbframe.iloc[i,8],
+                                                ID_MONEDA      = Monedas.objects.get(ID_MONEDA = obj_moneda.ID_MONEDA), #dbframe.iloc[i,7],
+                                                ID_ESTADO_FAC  = EstadosFac.objects.get(ID_ESTADO_FAC = obj_edo_fac.ID_ESTADO_FAC), #dbframe.iloc[i,8],
                                                 SUBTOTAL       = float (dbframe.iloc[i,9]),
                                                 TOTAL          = float (dbframe.iloc[i,10]),
                                                 IVA            = V_IVA,
@@ -173,7 +190,7 @@ def create_fac(request):
         if form.is_valid():  
             try:  
                 form.save()  
-                return redirect('create_fac.html')  
+                return redirect('/create_fac')  
             except:  
                 pass 
     else:  

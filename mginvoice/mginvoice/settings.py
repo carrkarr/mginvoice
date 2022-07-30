@@ -90,6 +90,7 @@ INSTALLED_APPS = [
     #'import_export',
     'acc',
     'fac',
+    'oper',
 
 ]
 

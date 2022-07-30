@@ -20,6 +20,7 @@ urlpatterns = [
     path('mgadmsite/', admin.site.urls),
     path('', include('acc.urls')),
     path('', include('fac.urls')),
+    path('', include('oper.urls')),
 ]
 
 handler404 = "acc.views.error_404"
