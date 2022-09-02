@@ -27,7 +27,7 @@ class FacturaForm(forms.ModelForm):
             'ID_EMISOR': forms.Select(attrs={'class': 'form-control', 'label':'Emisor', 'required':True, }),
             'FOLIO': forms.TextInput(attrs={'class': 'form-control', 'required':True,}),
             'SERIE': forms.TextInput(attrs={'class': 'form-control', 'required':True,}),
-            'ID_TIPO_DOC': forms.Select(attrs={'class': 'form-control', 'label':'Tipo Docto.', 'required':True, }),
+            'ID_TIPO_DOC': forms.Select(attrs={'class': 'form-control', 'required':True, }),
             'ID_RECEPTOR': forms.Select(attrs={'class': 'form-control', 'required':True,}),
             'FECHA_EMISION': forms.DateInput (attrs={'class': 'date', 'placeholder': 'YYYY-mm-dd'}, format='%Y-%m-%d'),
             'ID_MONEDA': forms.Select(attrs={'class': 'form-control', 'required':True,}),

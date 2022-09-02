@@ -9,7 +9,6 @@ urlpatterns = [
     path('find_depo/', views.find_depo, name='find_depo'),
     path('find_depo_f/', views.find_depo_f, name='find_depo_f'),
     path('del_depo/<int:id>/',views.delete_depo, name='del_depo'),
-
 ]
 
 '''

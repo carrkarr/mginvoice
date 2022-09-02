@@ -1,4 +1,5 @@
 from ast import Not
+from email import message
 from django.contrib.auth.decorators import login_required
 from django.db.models import Sum
 from django.shortcuts import redirect
@@ -25,6 +26,13 @@ from django.views.generic.base import View
 
 from django.views.decorators.http import require_http_methods
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+import re
+
+def clear_rfc(str_00):
+    pattern = r'[^0-9A-Za-z]'
+    #str_00 = 'ÿJ&M#A17|03@15N/H~3'
+    str_01 = re.sub(pattern, '', str_00)
+    return str_01
 
 
 @login_required()
@@ -99,45 +107,55 @@ def act_load_fac(request):
 
             for i in range(len(dbframe)):
 
-                if Ereceptora.objects.filter(RFC=dbframe.iloc[i,1]).exists() == False:
+                RFC_REC = clear_rfc (str (dbframe.iloc[i,1]))
+                RFC_EMI = clear_rfc (str (dbframe.iloc[i,4]))
+                TIPO_DOC_FAC =  str (dbframe.iloc[i,5])
+                V_MONEDA = str (dbframe.iloc[i,7])
+                V_EDO_FAC = str (dbframe.iloc[i,8])
+
+                if Ereceptora.objects.filter(RFC=RFC_REC).exists() == False:
                     #Receptor dbframe.iloc[i,0] dbframe.iloc[i,1]
-                    obj_rec, created = Ereceptora.objects.filter(
-                                Q(RFC=dbframe.iloc[i,1]),
-                                ).get_or_create(RFC=dbframe.iloc[i,1], NOMBRE=dbframe.iloc[i,0], defaults={'usuario': vusername})
+                    obj_rec, get_or_create = Ereceptora.objects.filter(
+                                Q(RFC=RFC_REC),
+                                ).get_or_create(RFC=RFC_REC, NOMBRE=dbframe.iloc[i,0], defaults={'usuario': vusername})
+                else:                                                            #smc
+                    obj_rec = Ereceptora.objects.filter(RFC=RFC_REC).first()   #smc
 
+                if Eemisora.objects.filter(RFC=RFC_EMI).exists() == False:
+                    #Receptor dbframe.iloc[i,3] dbframe.iloc[i,4]
+                    obj_emi, get_or_create = Eemisora.objects.filter(
+                                Q(RFC=RFC_EMI),
+                                ).get_or_create(RFC=RFC_EMI, NOMBRE=dbframe.iloc[i,3], defaults={'usuario': vusername})
+                else:                                                            #smc
+                    obj_emi = Eemisora.objects.filter(RFC=RFC_EMI).first()   #smc
 
-                #Receptor dbframe.iloc[i,3] dbframe.iloc[i,4]
-                obj_emi, created = Eemisora.objects.filter(
-                                Q(RFC=dbframe.iloc[i,4]),
-                                ).get_or_create(RFC=dbframe.iloc[i,4], NOMBRE=dbframe.iloc[i,3], defaults={'usuario': vusername})
+                #dbframe.iloc[i,5]
+                obj_tipo_doc, get_or_create = TiposDoc.objects.filter(
+                                Q(NOMBRE=TIPO_DOC_FAC),
+                                ).get_or_create(NOMBRE=TIPO_DOC_FAC, defaults={'usuario': vusername})
+ 
+                obj_moneda, get_or_create = Monedas.objects.filter(
+                                Q(NOMBRE=V_MONEDA),
+                                ).get_or_create(NOMBRE=V_MONEDA, defaults={'usuario': vusername})
 
-                #dbframe.iloc[i,5],
-                obj_tipo_doc, created = TiposDoc.objects.filter(
-                                Q(NOMBRE=dbframe.iloc[i,5]),
-                                ).get_or_create(NOMBRE=dbframe.iloc[i,5], defaults={'usuario': vusername})
+                obj_edo_fac, get_or_create = EstadosFac.objects.filter(
+                                Q(NOMBRE=V_EDO_FAC),
+                                ).get_or_create(NOMBRE=V_EDO_FAC, defaults={'usuario': vusername})                
 
-                obj_moneda, created = Monedas.objects.filter(
-                                Q(NOMBRE=dbframe.iloc[i,7]),
-                                ).get_or_create(NOMBRE=dbframe.iloc[i,7], defaults={'usuario': vusername})
-
-                obj_edo_fac, created = EstadosFac.objects.filter(
-                                Q(NOMBRE=dbframe.iloc[i,8]),
-                                ).get_or_create(NOMBRE=dbframe.iloc[i,8], defaults={'usuario': vusername})                
-                
                 #Afiliado dbframe.iloc[i,12]
                 # Como trae blancos evitamos los nan
                 if dbframe.iloc[i,12] == dbframe.iloc[i,12]:
 
-                    obj_afi, created = Afiliado.objects.filter(
+                    obj_afi, get_or_create = Afiliado.objects.filter(
                                 Q(NOMBRE_ALIAS=dbframe.iloc[i,12]),
                                 ).get_or_create(NOMBRE_ALIAS=dbframe.iloc[i,12], defaults={'usuario': vusername})
                 else:
-                    obj_afi, created = Afiliado.objects.filter(
+                    obj_afi, get_or_create = Afiliado.objects.filter(
                                 Q(NOMBRE_ALIAS=""),
                                 ).get_or_create(NOMBRE_ALIAS='', defaults={'usuario': vusername})
 
                 V_ID_AFIL=obj_afi.ID_AFILIADO
- 
+                
                 #Generamos las Facturas
                 #"ID_EMISOR", "SERIE","FOLIO", "TIPO_DOCUMENTO"]
                 V_FOLIO=dbframe.iloc[i,2]
@@ -153,7 +171,7 @@ def act_load_fac(request):
                 else:
                     V_IVA = 0.0
 
-                obj, created = Facturas.objects.filter(
+                obj, get_or_create = Facturas.objects.filter(
                                 Q(ID_EMISOR=obj_emi.ID_EMISOR) & Q(SERIE=V_SERIE) & Q(FOLIO=V_FOLIO),
                                 ).get_or_create(ID_EMISOR      = Eemisora.objects.get(ID_EMISOR = obj_emi.ID_EMISOR),
                                                 FOLIO          = V_FOLIO,
@@ -170,12 +188,11 @@ def act_load_fac(request):
                                                 TIPO_CAMBIO    = 0,
                                                 defaults={'usuario': vusername})
 
-            messages.error(request, 'Archivo cargado con éxito!!!!')
+            messages.info(request, 'Archivo cargado con éxito!!!! %s'  % myfile)
             return render(request, 'fac/archexcel.html',{'form': form})
 
     except Exception as identifier:
-        print('identifier')
-        print(identifier)
+        messages.error(request, identifier)     #smc
         form = CargaFacForm()
 
     form = CargaFacForm()
@@ -207,7 +224,7 @@ def create_fac(request):
 def list_fac_view(request):
     facturas = Facturas.objects.all()
     page = request.GET.get('page', 1)
-    paginator = Paginator(facturas, 20)
+    paginator = Paginator(facturas, 30)
     try:
         fac_list = paginator.page(page)
     except PageNotAnInteger:
@@ -224,7 +241,7 @@ def delete_fac(request, id):
     facturas = Facturas.objects.all()
 
     page = request.GET.get('page', 1)
-    paginator = Paginator(facturas, 20)
+    paginator = Paginator(facturas, 30)
     try:
         fac_list = paginator.page(page)
     except PageNotAnInteger:
@@ -246,7 +263,7 @@ def find_fac(request):
         facturas = Facturas.objects.all()
 
     page = request.GET.get('page', 1)
-    paginator = Paginator(facturas, 20)
+    paginator = Paginator(facturas, 30)
     try:
         fac_list = paginator.page(page)
     except PageNotAnInteger:
@@ -265,7 +282,7 @@ def find_fac_f(request):
         facturas = Facturas.objects.all()
 
     page = request.GET.get('page', 1)
-    paginator = Paginator(facturas, 20)
+    paginator = Paginator(facturas, 30)
     try:
         fac_list = paginator.page(page)
     except PageNotAnInteger:

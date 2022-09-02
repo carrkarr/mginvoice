@@ -48,7 +48,7 @@ class Afiliado(models.Model):
 
 class EstadosFac(models.Model):
     ID_ESTADO_FAC = models.AutoField(primary_key=True, unique=True)
-    NOMBRE = models.CharField(max_length=30 , default="")
+    NOMBRE = models.CharField(max_length=30 , unique=True)
     usuario = models.ForeignKey(User, on_delete=models.CASCADE,)
 
     # Metadata
@@ -60,7 +60,7 @@ class EstadosFac(models.Model):
 
 class TiposDoc(models.Model):
     ID_TIPO_DOC = models.AutoField(primary_key=True, unique=True)
-    NOMBRE = models.CharField(max_length=30 , default="")
+    NOMBRE = models.CharField(max_length=30 , unique=True)
     usuario = models.ForeignKey(User, on_delete=models.CASCADE,)
 
     # Metadata
@@ -72,7 +72,7 @@ class TiposDoc(models.Model):
 
 class Monedas(models.Model):
     ID_MONEDA = models.AutoField(primary_key=True, unique=True)
-    NOMBRE = models.CharField(max_length=9 , default="")
+    NOMBRE = models.CharField(max_length=9 , unique=True, default="")
     usuario = models.ForeignKey(User, on_delete=models.CASCADE,)
 
     # Metadata
@@ -88,7 +88,6 @@ class Facturas(models.Model):
     ID_EMISOR = models.ForeignKey(Eemisora, on_delete=models.RESTRICT, null=False)
     FOLIO = models.CharField(max_length=30 , default="")
     SERIE = models.CharField(max_length=10 , default="")
-    ID_TIPO_DOC = models.ForeignKey(TiposDoc, on_delete=models.RESTRICT, null=True)
     ID_RECEPTOR = models.ForeignKey(Ereceptora, on_delete=models.RESTRICT, null=True)
     FECHA_EMISION = models.DateField(blank=True, null=True)
     ID_MONEDA = models.ForeignKey(Monedas, on_delete=models.RESTRICT, null=True)
@@ -97,6 +96,7 @@ class Facturas(models.Model):
     TOTAL = models.DecimalField(default=0.00, max_digits=19, decimal_places=2)
     IVA = models.DecimalField(default=0.00, max_digits=12, decimal_places=2)
     ID_AFILIADO = models.ForeignKey(Afiliado, on_delete=models.RESTRICT, null=True, default=0)
+    ID_TIPO_DOC = models.ForeignKey(TiposDoc, on_delete=models.RESTRICT, null=True, default='')
     TIPO_CAMBIO = models.DecimalField(default=0.00, max_digits=9, decimal_places=2)
     usuario = models.ForeignKey(User, on_delete=models.CASCADE,)
 

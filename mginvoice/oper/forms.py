@@ -1,5 +1,6 @@
 from django.contrib.admin import forms
 from django import forms
+from django.utils.text import slugify
 from django.core.validators import FileExtensionValidator
 from .models import Depositos
 import locale
@@ -9,7 +10,7 @@ locale.setlocale (locale.LC_ALL, '')
 # *********************************************************
 # *********************************************************
 
-class DepositoForm(forms.ModelForm):
+class DepositosForm(forms.ModelForm):
     class Meta:
         model = Depositos
 
@@ -33,3 +34,17 @@ class DepositoForm(forms.ModelForm):
             'ID_AFILIADO': forms.Select(attrs={'class': 'form-control', 'label':'AFILIADO', 'required':True,}),
             'usuario': forms.Select(attrs={'class': 'form-control', 'required':True,}),
         }
+
+
+# Create your models here.
+
+    def clean_name(self) -> str:
+        name: str = self.cleaned_data["CVE_FOLIO"]
+        if Depositos.objects.filter(CVE_FOLIO=name).exclude(id=self.instance.id).exists():
+            raise forms.ValidationError(f"Un Deposito con el mismo {name} exists")
+        return name
+
+    def save(self, commit: bool = True) -> Depositos:
+        task: Depositos = super().save(commit)
+        task.save()
+        return task

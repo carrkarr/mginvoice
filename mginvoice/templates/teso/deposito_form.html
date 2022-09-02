@@ -1,0 +1,48 @@
+{% load widget_tweaks %}
+{% with WIDGET_ERROR_CLASS='is-invalid' %}
+<form hx-post="{{ request.path }}" hx-headers='{"X-CSRFToken":"{{ csrf_token }}"}' class="modal-content">
+  <div class="modal-header">
+    <h5 class="modal-title">Editar Deposito</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  </div>
+  <div class="modal-body">
+
+    <div class="mb-3">
+      <label for="{{ form.ID_BANCO.id_for_label }}" class="form-label">Banco</label>
+      {% render_field form.ID_BANCO class="form-control" placeholder="Banco" %}
+      <div class="invalid-feedback">{{ form.ID_BANCO.errors|first }}</div>
+    </div>
+
+    <div class="mb-3">
+      <label for="{{ form.CUENTA.id_for_label }}" class="form-label">Cuenta</label>
+      {% render_field form.CUENTA class="form-control" placeholder="Cuenta" %}
+      <div class="invalid-feedback">{{ form.CUENTA.errors|first }}</div>
+    </div>
+
+    <div class="mb-3">
+      <label for="{{ form.CVE_FOLIO.id_for_label }}" class="form-label">Num. Deposito</label >
+      {% render_field form.CVE_FOLIO class="form-control" %}
+      <div class="invalid-feedback">{{ form.CVE_FOLIO.errors|first }}</div>
+    </div>
+
+    <div class="mb-3">
+        <label for="{{ form.FECHA_DEPOSITO.id_for_label }}" class="form-label">Fecha Deposito</label >
+        {% render_field form.FECHA_DEPOSITO|add_class:"form-control" size='10' type="date" data-date-format="dd-mm-yyyy"  %}
+        <div class="invalid-feedback">{{ form.FECHA_DEPOSITO.errors|first }}</div>
+      </div>
+  
+
+  </div>
+
+  <div class="modal-footer">
+    {% if Depostitos %}
+    <button type="button" class="btn btn-danger" hx-post="{% url 'remove_movie' pk=movie.pk %}">Eliminar</button>
+    <span class="flex-grow-1"></span>
+    {% endif %}
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+      Cancelar
+    </button>
+    <button type="submit" class="btn btn-primary">Guardar</button>
+  </div>
+</form>
+{% endwith %}

@@ -21,6 +21,7 @@ urlpatterns = [
     path('', include('acc.urls')),
     path('', include('fac.urls')),
     path('', include('oper.urls')),
+    path('', include('teso.urls')),
 ]
 
 handler404 = "acc.views.error_404"

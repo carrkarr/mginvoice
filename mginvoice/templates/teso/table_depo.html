@@ -1,0 +1,94 @@
+{# templates/teso/table_depo.html #}
+
+<div id='list_depo'>
+
+    <div style="background-color:LightGray;color:black;font-size:12px;">
+     
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+
+    <table>
+        <thead>
+            <tr>
+              <th>Num. Reg.</th>
+              <th>BANCO</th>
+              <th>CUENTA</th>
+              <th>FOLIO DEPO.</th>
+              <th>FECHA DEPOSITO</th>
+              <th>FECHA BANCO</th>
+              <th>MONEDA</th>
+              <th>TIPO_CAMBIO</th>
+              <th>IMPORTE</th>
+              <th>EDO. DEPOSITO</th>
+              <th>EN FIRME?</th>
+              <th>RECEPTOR</th>
+              <th>AFILIADO</th>
+              <th>USUARIO</th>
+
+            </tr>
+        </thead>
+
+    <tbody hx-target="closest tr" hx-swap="outerHTML">
+    
+    {% for depo in depo_list %}
+    <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ depo.ID_BANCO }}</td>
+        <td>{{ depo.CUENTA }}</td>
+        <td>{{ depo.CVE_FOLIO }}</td>
+        <td>{{ depo.FECHA_DEPOSITO }}</td>
+        <td>{{ depo.FECHA_EN_BANCO }}</td>
+        <td>{{ depo.MONEDA }}</td>
+        <td>{{ depo.TIPO_CAMBIO }}</td>
+        <td>{{ depo.IMPORTE }}</td>
+        <td>{{ depo.ID_ESTADO_DEP }}</td>
+        <td>{{ depo.EN_FIRME }}</td>
+        <td>{{ depo.ID_RECEPTOR }}</td>
+        <td>{{ depo.ID_AFILIADO }}</td>
+        <td>{{ depo.usuario }}</td>
+
+      <td>
+
+
+
+
+      </td>
+    </tr>
+
+    </li>
+
+      </div>
+      
+      {% empty %}
+      <tr>
+        <td colspan="2">
+          No invoice on this page.
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+</div>
+
+{% if depo_list.has_other_pages %}
+<ul class="pagination">
+{% if depo_list.has_previous %}
+  <li><a href="?page={{ depo_list.previous_page_number }}">&laquo;</a></li>
+{% else %}
+  <li class="disabled"><span>&laquo;</span></li>
+{% endif %}
+{% for i in depo_list.paginator.page_range %}
+  {% if depo_list.number == i %}
+    <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+  {% else %}
+    <li><a href="?page={{ i }}">{{ i }}</a></li>
+  {% endif %}
+{% endfor %}
+{% if depo_list.has_next %}
+  <li><a href="?page={{ users.next_page_number }}">&raquo;</a></li>
+{% else %}
+  <li class="disabled"><span>&raquo;</span></li>
+{% endif %}
+</ul>
+{% endif %}
+
+

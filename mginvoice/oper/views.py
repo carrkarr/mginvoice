@@ -1,16 +1,14 @@
-from django.shortcuts import render
 from django.shortcuts import redirect
-from .forms import  DepositoForm
+from django.shortcuts import render
+from .forms import  DepositosForm
 from .models import *
 from django.views.decorators.http import require_http_methods
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-
-
 # Create your views here.
 def create_depo(request):  
     if request.method == "POST":  
-        form = DepositoForm(request.POST)  
+        form = DepositosForm(request.POST)  
         if form.is_valid():  
             try:  
                 form.save()  
@@ -18,7 +16,7 @@ def create_depo(request):
             except:  
                 pass 
     else:  
-        form = DepositoForm()  
+        form = DepositosForm()  
     return render(request,'oper/create_depo.html',{'form':form})
 
 def list_depo_view(request):
@@ -92,6 +90,6 @@ def find_depo_f(request):
 
     return render(request, 'oper/list_depo.html', {'depo_list': depo_list})
 
+#*********************************
+#*********************************
 
-#*********************************
-#*********************************

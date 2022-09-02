@@ -91,7 +91,7 @@ INSTALLED_APPS = [
     'acc',
     'fac',
     'oper',
-
+    'teso',
 ]
 
 MIDDLEWARE = [

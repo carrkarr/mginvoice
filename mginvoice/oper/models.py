@@ -37,12 +37,12 @@ class Depositos(models.Model):
     CVE_FOLIO = models.CharField(max_length=240 , default="")
     FECHA_DEPOSITO = models.DateField(blank=True, null=True)
     FECHA_EN_BANCO = models.DateField(blank=True, null=True)
-    ID_MONEDA = models.ForeignKey(Monedas, on_delete=models.RESTRICT, null=False)
     TIPO_CAMBIO = models.DecimalField(default=0.00, max_digits=9, decimal_places=2)
     IMPORTE = models.DecimalField(default=0.00, max_digits=19, decimal_places=2)
     EN_FIRME = models.BooleanField(default=False)
     ID_ESTADO_DEP = models.ForeignKey(EstadosDep, on_delete=models.RESTRICT, null=False)
     ID_RECEPTOR = models.ForeignKey(Ereceptora, on_delete=models.RESTRICT, null=False)
+    ID_MONEDA = models.ForeignKey(Monedas, on_delete=models.RESTRICT, null=False)   
     ID_AFILIADO = models.ForeignKey(Afiliado, on_delete=models.RESTRICT, null=True, default=0)
     usuario = models.ForeignKey(User, on_delete=models.CASCADE,)
 
