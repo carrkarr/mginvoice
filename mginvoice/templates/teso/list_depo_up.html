@@ -8,7 +8,7 @@
 
 {# tutorial/templates/tutorial/people.html {% load render_table from django_tables2 %} #}
 
-<body>
+<body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
 
 {% block bodyini %}
 
@@ -16,34 +16,45 @@
 
     {% if user.is_authenticated %}
     <section>
-    <form action="{% url 'find_depo' %}" method="get">
-       
+    <form action="{% url 'find_depo-up' %}" method="get">
+        {% csrf_token %}
         <div class="col-xs-2">
             <input type="text" class="form-control" name="query" placeholder="FOLIO DEL DEPOSITO" />
         </div>
             <button type="submit" class="btn btn-primary">Find</button>
-       
-
     </form>
 
-    <form action="{% url 'find_depo_f' %}" method="get" >
+    <form action="{% url 'find_depo_f-up' %}" method="get" >
+        {% csrf_token %}
         <div class="col-xs-2">
             <input type="date"  class="form-control date-picker"  name="query_f" id="id-date-picker-1" type="text" data-date-format="dd-mm-yyyy" placeholder="Fecha Del Depósito" />
         </div>
             <button type="submit" class="btn btn-primary">Find</button>
-     
-
     </form>
-
 
 </section>
 
     {% include "teso/table_depo.html" %}
 
-
     {% endif %}
 
 {% endblock %}
 
+
+    <!-- Placeholder for the modal -->
+    <div id="modal" class="modal fade">
+        <div id="dialog" class="modal-dialog" hx-target="this"></div>
+      </div>
+  
+      <!-- Empty toast to show the message -->
+      <div class="toast-container position-fixed top-0 end-0 p-3">
+        <div id="toast" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+          <div class="d-flex">
+            <div id="toast-body" class="toast-body"></div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+          </div>
+        </div>
+      </div>
+  
 
 </body>

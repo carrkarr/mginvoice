@@ -27,7 +27,7 @@
             </tr>
         </thead>
 
-    <tbody hx-target="closest tr" hx-swap="outerHTML">
+    <tbody hx-target="closest tr">
     
     {% for depo in depo_list %}
     <tr>
@@ -46,13 +46,20 @@
         <td>{{ depo.ID_AFILIADO }}</td>
         <td>{{ depo.usuario }}</td>
 
-      <td>
+        <td>
+          <!-- 
+          <button class="btn btn-primary btn-sm" hx-get="{#% url 'edit_movie' pk=movie.pk %#}" hx-target="#dialog">
+            Edit
+          </button>
+        -->
+        </td>
+        <td>
+          <button  hx-get="{% url 'edit-depo' pk=depo.ID_DEPOSITO %}" hx-target="body" hx-swap="beforeend">
+            Modificar
+          </button>
+        </td>
 
-
-
-
-      </td>
-    </tr>
+      </tr>
 
     </li>
 

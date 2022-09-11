@@ -6,17 +6,17 @@
 
         <a href="#modal.closing"  _="on click trigger closeModal" title="Close" class="close">X</a>
 
-         <h1>Registra Depósitos</h1>
+         <h1>Actualizar Depósitos</h1>
     
-                <form hx-post="{{ request.path }}" class="dialog">
+                <form hx-post="{{ request.path }}"  class="dialog" hx-trigger="load, depoListChanged from:body">
                        {% csrf_token %}
 
                        {% for hidden in form.hidden_fields %}
                        {{ hidden }}
                      {% endfor %}
 
-                 
-                     {% for field in form.visible_fields %}
+
+                    {% for field in form.visible_fields %}
 
                         <i for="{{ field.id_for_label }}">{{ field.label }}</i>
 
@@ -36,7 +36,6 @@
 
                         {% endif %}
 
-
                          {% for error in field.errors %}
                            <span class="help-block">{{ error }}</span>
                          {% endfor %}
@@ -47,16 +46,22 @@
 
                 <!-- {{ form.as_ul }} -->
 
-                
             <div class="form__button">
 	            <input type="button" value="Cancel" _="on click trigger closeModal"></input>
-                <input type="submit" value="submit"  hx-post="{% url 'create_depo' %}" hx-target="body" hx-swap="beforeend"></input>
+                <input type="submit" value="submit"  hx-post="{% url 'edit-depo' pk=depo.ID_DEPOSITO %}" hx-target="body" hx-swap="beforeend" _="on click trigger closeModal"></input>
             </div>
 
-                
-                </form>
+            </form>
 
             </div>
         </div>
 
         <script src="https://unpkg.com/hyperscript.org@0.9.5"></script>
+
+        <!-- 
+        <script>
+            document.body.addEventListener("showMessage", function(evt){
+                alert(evt.detail.value);
+            })
+        </script>
+        -->

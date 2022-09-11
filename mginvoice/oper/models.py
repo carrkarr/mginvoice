@@ -1,6 +1,7 @@
 
 from django.db import models
 from django.contrib.auth.models import User
+from django_userforeignkey.models.fields import UserForeignKey
 from fac.models import *
 
 
@@ -44,7 +45,8 @@ class Depositos(models.Model):
     ID_RECEPTOR = models.ForeignKey(Ereceptora, on_delete=models.RESTRICT, null=False)
     ID_MONEDA = models.ForeignKey(Monedas, on_delete=models.RESTRICT, null=False)   
     ID_AFILIADO = models.ForeignKey(Afiliado, on_delete=models.RESTRICT, null=True, default=0)
-    usuario = models.ForeignKey(User, on_delete=models.CASCADE,)
+    usuario = UserForeignKey(auto_user_add=True,related_name='+')
+    
 
     # Metadata
     class Meta:

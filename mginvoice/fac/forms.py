@@ -21,7 +21,7 @@ class FacturaForm(forms.ModelForm):
                     'FECHA_EMISION',
                     'ID_MONEDA',
                     'ID_ESTADO_FAC','SUBTOTAL','TOTAL',
-                    'IVA','ID_AFILIADO','TIPO_CAMBIO','usuario' ]
+                    'IVA','ID_AFILIADO','TIPO_CAMBIO' ]
 
         widgets = {
             'ID_EMISOR': forms.Select(attrs={'class': 'form-control', 'label':'Emisor', 'required':True, }),
@@ -37,5 +37,5 @@ class FacturaForm(forms.ModelForm):
             'IVA': forms.TextInput(attrs={'class': 'form-control'}),
             'ID_AFILIADO': forms.Select(attrs={'class': 'form-control'}),
             'TIPO_CAMBIO': forms.TextInput(attrs={'class': 'form-control'}),
-            'usuario': forms.Select(attrs={'class': 'form-control', 'required':True,},),
+            
         }

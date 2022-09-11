@@ -12,7 +12,7 @@ def create_depo(request):
         if form.is_valid():  
             try:  
                 form.save()  
-                return redirect('/create_depo')  
+                return redirect('/create_depo')
             except:  
                 pass 
     else:  

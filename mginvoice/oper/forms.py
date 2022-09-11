@@ -16,8 +16,8 @@ class DepositosForm(forms.ModelForm):
 
         fields = [  'ID_BANCO', 'CUENTA', 'CVE_FOLIO', 'FECHA_DEPOSITO',
                     'FECHA_EN_BANCO', 'ID_MONEDA', 'TIPO_CAMBIO',
-                    'IMPORTE', 'EN_FIRME', 'ID_ESTADO_DEP', 'ID_RECEPTOR', 'ID_AFILIADO',
-                    'usuario' ]
+                    'IMPORTE', 'EN_FIRME', 'ID_ESTADO_DEP', 'ID_RECEPTOR', 'ID_AFILIADO'
+                     ]
 
         widgets = {
             'ID_BANCO': forms.Select(attrs={'class': 'form-control', 'label':'Banco', 'required':True, }),
@@ -32,7 +32,7 @@ class DepositosForm(forms.ModelForm):
             'ID_ESTADO_DEP': forms.Select(attrs={'class': 'form-control', 'label':'ESTADO', 'required':True,}),
             'ID_RECEPTOR': forms.Select(attrs={'class': 'form-control', 'label':'RECEPTOR', 'required':True,}),
             'ID_AFILIADO': forms.Select(attrs={'class': 'form-control', 'label':'AFILIADO', 'required':True,}),
-            'usuario': forms.Select(attrs={'class': 'form-control', 'required':True,}),
+            #'usuario': forms.Select(attrs={'class': 'form-control', 'required':True,}),
         }
 
 

@@ -26,8 +26,7 @@
 
                                             <li><a href="/list_fac">Lista De Facturas</a></li>
 
-                                            <li><a href="/create_fac">Registra Facturas</a></li>
-
+                                            <li><a hx-get="{% url 'create_fac' %}" hx-target="body" hx-swap="beforeend">Registra Facturas</a></li>
                                         </ol>
 
                                     </li>
@@ -37,7 +36,7 @@
 
                                         <ol class="gn-submenu"> 
 
-                                            <li><a href="/create_depo">Registra Depósitos</a></li>
+                                            <li><a hx-get="{% url 'create_depo' %}" hx-target="body" hx-swap="beforeend">Registra Depósitos</a></li>
                                             <li><a href="/list_depo">Lista De Depósitos</a></li>
 
                                         </ol>
@@ -45,7 +44,7 @@
                                     </li>
                                     <li><a href="#service" class="gn-icon gn-icon-download">Tesoreria</a>                                        
                                          <ol class="gn-submenu">
-                                             <li><a href="/list_depo_up">Lista De Depósitos</a></li>
+                                             <li><a href="/list_depo_up">Lista De Depósitos Act.</a></li>
                                         </ol>
                                     </li>
 

@@ -23,6 +23,7 @@
     <!-- Squad theme CSS -->
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
 
+
     <!-- Load from unpkg -->
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script> 
@@ -41,13 +42,16 @@
           event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
         })
     </script>
-
-
-        <!-- Scripts: Bootstraps, HTMX, and custom JavaScript -->
+  
+        <!-- Scripts: Bootstraps, HTMX, and custom JavaScript 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://unpkg.com/htmx.org@1.6.1/dist/htmx.min.js"></script>
         <script src="{% static 'js/dialog.js' %}"></script>
         <script src="{% static 'js/toast.js' %}"></script>
-      
+      -->
+
+      <link rel="stylesheet" href="{% static 'css/custom-style.css' %}"/>
+      <script src="https://unpkg.com/hyperscript.org@0.9.5"></script>
+
 </head>
 {% endblock %}
