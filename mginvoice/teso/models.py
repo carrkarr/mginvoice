@@ -43,8 +43,8 @@ class Repartos(models.Model):
 class Caja(models.Model):
 
     ID_CAJA = models.AutoField(primary_key=True, unique=True)
-    ID_DEPOSITO = models.ForeignKey(Depositos, on_delete=models.DO_NOTHING, null=True, default=0)
-    ID_EFECTIVO = models.ForeignKey(Efectivo, on_delete=models.DO_NOTHING, null=True)
+    SERIE = models.CharField(max_length=10 , default="")
+    FOLIO = models.CharField(max_length=30 , default="")
     FECHA_DEPOSITO = models.DateField(auto_now_add=True)
     IMPORTE = models.DecimalField(default=0.00, max_digits=19, decimal_places=2)
     IMPORTE_DISP = models.DecimalField(default=0.00, max_digits=19, decimal_places=2)
@@ -52,6 +52,11 @@ class Caja(models.Model):
     usuario = UserForeignKey(auto_user_add=True,related_name='+')
 
     # Metadata
+    class Meta:
+        constraints = [
+            UniqueConstraint(fields=["SERIE","FOLIO"], name='unique_caja')
+        ]
+
     class Meta:
         ordering = ["-FECHA_DEPOSITO"]
 

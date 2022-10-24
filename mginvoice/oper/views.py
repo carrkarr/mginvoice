@@ -108,13 +108,16 @@ def create_efe(request):
         form = EfectivoForm(request.POST)
         if form.is_valid():
             efe = form.save()
-		# Creamos el registro de Caja ID_DEPOSITO      = Depositos.objects.get(ID_DEPOSITO = 0),
-            obj, get_or_create = Caja.objects.filter(ID_EFECTIVO=efe.ID_EFECTIVO).get_or_create(ID_DEPOSITO      = None,
-                                                ID_EFECTIVO      = Efectivo.objects.get(ID_EFECTIVO = efe.ID_EFECTIVO),
+            VC_FOLIO = str(efe.ID_EFECTIVO)           
+		    # Creamos el registro de Caja ID_DEPOSITO      = Depositos.objects.get(ID_DEPOSITO = 0),
+            obj, get_or_create = Caja.objects.filter(SERIE='EFE',  FOLIO=VC_FOLIO).get_or_create(
+                                                SERIE            = 'EFE',
+                                                FOLIO            = VC_FOLIO,
                                                 IMPORTE          = efe.IMPORTE_DISP,
                                                 IMPORTE_DISP     = efe.IMPORTE_DISP,
-                                                ID_MONEDA        = Monedas.objects.get(ID_MONEDA = 1) ,
+                                                 ID_MONEDA       = Monedas.objects.get(ID_MONEDA = 1) ,
                                                 )
+
             #obj.save()
 
             return HTTPResponseHXRedirect(redirect_to=reverse_lazy("list-efe"))

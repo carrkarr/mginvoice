@@ -15,5 +15,4 @@ urlpatterns = [
     path('find_efe/', views.find_efe, name='find-efe'),
     path('find_efe_f/', views.find_efe_f, name='find-efe-f'),
     path('del_efe/<int:id>/',views.delete_efe, name='del-efe'),
-
 ]

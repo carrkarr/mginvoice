@@ -1,10 +1,10 @@
-{# templates/teso/list_depo.html #}
+{# templates/teso/list_caja.html #}
 
 {% extends 'comm/base.html' %}
 
 {% load i18n %}
 
-{% block title %}Lista De Depostitos{% endblock title %}
+{% block title %}Lista De Caja{% endblock title %}
 
 {# tutorial/templates/tutorial/people.html {% load render_table from django_tables2 %} #}
 
@@ -12,19 +12,19 @@
 
 {% block bodyini %}
 
-<h2 style="color: #fff; text-align: center">Lista De Depósitos<h2>
+<h2 style="color: #fff; text-align: center">Lista De caja<h2>
 
     {% if user.is_authenticated %}
     <section>
-    <form action="{% url 'find-depo-up' %}" method="get">
+    <form action="{% url 'find-caja' %}" method="get">
         {% csrf_token %}
         <div class="col-xs-2">
-            <input type="text" class="form-control" name="query" placeholder="FOLIO DEL DEPOSITO" />
+            <input type="text" class="form-control" name="query" placeholder="FOLIO DE CAJA" />
         </div>
             <button type="submit" class="btn btn-primary">Find</button>
     </form>
 
-    <form action="{% url 'find-depo-f-up' %}" method="get" >
+    <form action="{% url 'find-caja-f' %}" method="get" >
         {% csrf_token %}
         <div class="col-xs-2">
             <input type="date"  class="form-control date-picker"  name="query_f" id="id-date-picker-1" type="text" data-date-format="dd-mm-yyyy" placeholder="Fecha Del Depósito" />
@@ -34,7 +34,7 @@
 
 </section>
 
-    {% include "teso/table_depo.html" %}
+    {% include "teso/table_caja.html" %}
 
     {% endif %}
 

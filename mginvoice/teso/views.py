@@ -3,6 +3,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from oper.models import *
 from oper.forms import DepositosForm
 from teso.forms import RepartosForm
+from teso.models import *
 
 from django.contrib import messages #import messages
 # Create your views here.
@@ -51,6 +52,19 @@ def edit_depo(request, pk):
         form = DepositosForm(request.POST, instance=depo)
         if form.is_valid():
             form.save()
+            if depo.EN_FIRME == True:
+                VC_FOLIO = str(depo.ID_DEPOSITO)
+            #Si el deposito ya esta en FIRME
+		    # Creamos el registro de Caja ID_DEPOSITO      = Depositos.objects.get(ID_DEPOSITO = 0),
+                obj, get_or_create = Caja.objects.filter(SERIE='DEPO',  FOLIO=VC_FOLIO).get_or_create(
+                                                SERIE            = 'DEPO',
+                                                FOLIO            = VC_FOLIO,
+                                                IMPORTE          = depo.IMPORTE,
+                                                IMPORTE_DISP     = depo.IMPORTE,
+                                                ID_MONEDA        = Monedas.objects.get(ID_MONEDA = 1) ,
+                                                )
+
+
             return HttpResponse(
                 status=204,
                 headers={
@@ -183,3 +197,57 @@ def find_fac_f(request):
 
     return render(request, 'teso/list_fac_reparto.html', {'fac_list': fac_list})
 
+#******************************
+#******************************
+
+def list_caja_view(request):
+    caja = Caja.objects.all()
+    page = request.GET.get('page', 1)
+    paginator = Paginator(caja, 20)
+    try:
+        caja_list = paginator.page(page)
+    except PageNotAnInteger:
+        caja_list = paginator.page(1)
+    except EmptyPage:
+        caja_list = paginator.page(paginator.num_pages)
+
+    return render(request, 'teso/list_caja.html', {'caja_list': caja_list})
+
+def find_caja(request):
+    q = request.GET.get('query')
+
+    if q:
+        efectivo = Caja.objects.filter(ID_CAJA__icontains=q)
+    else:
+        efectivo = Caja.objects.all()
+
+    page = request.GET.get('page', 1)
+    paginator = Paginator(efectivo, 20)
+    try:
+        efe_list = paginator.page(page)
+    except PageNotAnInteger:
+        efe_list = paginator.page(1)
+    except EmptyPage:
+        efe_list = paginator.page(paginator.num_pages)
+
+    return render(request, 'oper/list_caja.html', {'efe_list': efe_list})
+
+
+def find_caja_f(request):
+    q = request.GET.get('query_f')
+
+    if q:
+        efectivo = Caja.objects.filter(FECHA_DEPOSITO__icontains=q)
+    else:
+        efectivo = Caja.objects.all()
+
+    page = request.GET.get('page', 1)
+    paginator = Paginator(efectivo, 20)
+    try:
+        efe_list = paginator.page(page)
+    except PageNotAnInteger:
+        efe_list = paginator.page(1)
+    except EmptyPage:
+        efe_list = paginator.page(paginator.num_pages)
+
+    return render(request, 'oper/list_caja.html', {'efe_list': efe_list})

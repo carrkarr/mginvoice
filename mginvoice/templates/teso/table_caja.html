@@ -1,0 +1,95 @@
+{# templates/teso/table_caja.html #}
+
+<div id='list_caja'>
+
+    <div style="background-color:LightGray;color:black;font-size:12px;">
+     
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+
+    <table>
+        <thead>
+            <tr>
+              <th>Num. Reg.</th>
+              <th>ID_CAJA</th>
+              <th>PROC.</th>
+              <th>FOLIO</th>
+              <th>FECHA DEPOSITO</th>
+              <th>IMPORTE</th>
+              <th>IMPORTE_DISP</th>
+              <th>ID_MONEDA</th>
+              <th>USUARIO</th>
+
+            </tr>
+        </thead>
+
+    <tbody hx-target="closest tr">
+    
+    {% for caja in caja_list %}
+    <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ caja.ID_CAJA }}</td>
+        <td>{{ caja.SERIE }}</td>
+        <td>{{ caja.FOLIO }}</td>
+        <td>{{ caja.FECHA_DEPOSITO }}</td>
+        <td>{{ caja.IMPORTE }}</td>
+        <td>{{ caja.IMPORTE_DISP }}</td>
+        <td>{{ caja.ID_MONEDA }}</td>
+        <td>{{ caja.usuario }}</td>
+
+        <td>
+          <!-- 
+          <button class="btn btn-primary btn-sm" hx-get="{#% url 'edit_movie' pk=movie.pk %#}" hx-target="#dialog">
+            Edit
+          </button>
+        -->
+        </td>
+        
+          <!-- 
+        
+        <td>
+          <button  hx-get="{% url 'edit-depo' pk=caja.ID_CAJA %}" hx-target="body" hx-swap="beforeend">
+            Modificar
+          </button>
+        </td>
+                -->
+
+      </tr>
+
+    </li>
+
+      </div>
+      
+      {% empty %}
+      <tr>
+        <td colspan="2">
+          No invoice on this page.
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+</div>
+
+{% if caja_list.has_other_pages %}
+<ul class="pagination">
+{% if caja_list.has_previous %}
+  <li><a href="?page={{ caja_list.previous_page_number }}">&laquo;</a></li>
+{% else %}
+  <li class="disabled"><span>&laquo;</span></li>
+{% endif %}
+{% for i in caja_list.paginator.page_range %}
+  {% if caja_list.number == i %}
+    <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+  {% else %}
+    <li><a href="?page={{ i }}">{{ i }}</a></li>
+  {% endif %}
+{% endfor %}
+{% if caja_list.has_next %}
+  <li><a href="?page={{ users.next_page_number }}">&raquo;</a></li>
+{% else %}
+  <li class="disabled"><span>&raquo;</span></li>
+{% endif %}
+</ul>
+{% endif %}
+
+
