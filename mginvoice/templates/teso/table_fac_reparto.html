@@ -1,0 +1,89 @@
+{# templates/teso/table_fac_reparto.html #}
+
+<div id='list_fac'>
+
+        <div style="background-color:LightGray;color:black;font-size:12px;">
+         
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+    
+        <table>
+            <thead>
+                <tr>
+                  <th>Num. Reg.</th>
+                  <th>EMISORA</th>
+                  <th>FOLIO DOCTO.</th>
+                  <th>SERIE</th>
+
+                  <th>TIPO DOCTO</th>
+                  <th>RECEPTOR</th>
+                  <th>FECHA_EMISION</th>
+                  <th>MONEDA</th>
+                  <th>EDO. FACTURA</th>
+                  <th>SUBTOTAL</th>
+                  <th>TOTAL</th>
+                  <th>IVA</th>
+                  <th>AFILIADO</th>
+                  <th>TIPO_CAMBIO</th>
+                  <th>USUARIO</th>
+
+                </tr>
+            </thead>
+        <tbody>
+        
+        {% for fac in fac_list %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ fac.ID_EMISOR }}</td>
+            <td> <a hx-get="{{ fac.get_absolute_url }}" hx-target="body" hx-swap="beforeend"  style="background-color: #f56806;">{{ fac.FOLIO }}</a> </td>
+            <td>{{ fac.SERIE }}</td>
+            <td>{{ fac.ID_TIPO_DOC }}</td>
+            <td>{{ fac.ID_RECEPTOR }}</td>
+            <td>{{ fac.FECHA_EMISION }}</td>
+            <td>{{ fac.ID_MONEDA }}</td>
+            <td>{{ fac.ID_ESTADO_FAC }}</td>
+            <td>{{ fac.SUBTOTAL }}</td>
+            <td>{{ fac.TOTAL }}</td>
+            <td>{{ fac.IVA }}</td>
+            <td>{{ fac.ID_AFILIADO }}</td>
+            <td>{{ fac.TIPO_CAMBIO }}</td>
+            <td>{{ fac.usuario }}</td>
+        </tr>
+
+        </li>
+
+          </div>
+          
+          {% empty %}
+          <tr>
+            <td colspan="2">
+              No invoice on this page.
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+        </table>
+    </div>
+
+    {% if fac_list.has_other_pages %}
+  <ul class="pagination">
+    {% if fac_list.has_previous %}
+      <li><a href="?page={{ fac_list.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in fac_list.paginator.page_range %}
+      {% if fac_list.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if fac_list.has_next %}
+      <li><a href="?page={{ users.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+{% endif %}
+   
+

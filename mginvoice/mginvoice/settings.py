@@ -83,6 +83,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_userforeignkey',
+    'computed_property',
     'django_tables2',
     'django_filters',
     'django_htmx',

@@ -9,4 +9,11 @@ urlpatterns = [
     path('find_depo/', views.find_depo, name='find_depo'),
     path('find_depo_f/', views.find_depo_f, name='find_depo_f'),
     path('del_depo/<int:id>/',views.delete_depo, name='del_depo'),
+
+    path('create_efe/', views.create_efe, name='create-efe'),
+    path('list_efe/', views.list_efe_view, name='list-efe'), # Funcion
+    path('find_efe/', views.find_efe, name='find-efe'),
+    path('find_efe_f/', views.find_efe_f, name='find-efe-f'),
+    path('del_efe/<int:id>/',views.delete_efe, name='del-efe'),
+
 ]

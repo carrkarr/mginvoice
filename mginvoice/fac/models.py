@@ -3,7 +3,9 @@ from django.db.models import UniqueConstraint
 
 from django.contrib.auth.models import User
 from django_userforeignkey.models.fields import UserForeignKey
-from numpy import True_
+from django.urls import reverse
+
+#from teso.views import create_reparto
 
 # Create your models here.
 class Eemisora(models.Model):
@@ -59,6 +61,18 @@ class EstadosFac(models.Model):
     def __str__(self):
         return self.NOMBRE
 
+class EdosFacRet(models.Model):
+    ID_ESTADO_RET = models.AutoField(primary_key=True, unique=True)
+    NOMBRE = models.CharField(max_length=30 , unique=True)
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE,)
+
+    # Metadata
+    class Meta:
+        ordering = ["NOMBRE"]
+
+    def __str__(self):
+        return self.NOMBRE
+
 class TiposDoc(models.Model):
     ID_TIPO_DOC = models.AutoField(primary_key=True, unique=True)
     NOMBRE = models.CharField(max_length=30 , unique=True)
@@ -93,6 +107,7 @@ class Facturas(models.Model):
     FECHA_EMISION = models.DateField(blank=True, null=True)
     ID_MONEDA = models.ForeignKey(Monedas, on_delete=models.RESTRICT, null=True)
     ID_ESTADO_FAC = models.ForeignKey(EstadosFac, on_delete=models.RESTRICT, null=True)
+    ID_ESTADO_RET = models.ForeignKey(EdosFacRet, on_delete=models.RESTRICT, null=True)
     SUBTOTAL = models.DecimalField(default=0.00, max_digits=16, decimal_places=2)
     TOTAL = models.DecimalField(default=0.00, max_digits=19, decimal_places=2)
     IVA = models.DecimalField(default=0.00, max_digits=12, decimal_places=2)
@@ -100,6 +115,7 @@ class Facturas(models.Model):
     ID_TIPO_DOC = models.ForeignKey(TiposDoc, on_delete=models.RESTRICT, null=True, default='')
     TIPO_CAMBIO = models.DecimalField(default=0.00, max_digits=9, decimal_places=2)
     usuario = UserForeignKey(auto_user_add=True,related_name='+')
+    FECHA_REGISTRO = models.DateField(auto_now_add=True)
 
     # Metadata
     class Meta:
@@ -108,6 +124,9 @@ class Facturas(models.Model):
         ]
 
         ordering = ["-FECHA_EMISION"]
+
+    def get_absolute_url(self):
+        return reverse('create-reparto', kwargs={'pk': self.pk})
 
     def __str__(self):
         return self.FOLIO

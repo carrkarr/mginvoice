@@ -37,8 +37,13 @@
                                         <ol class="gn-submenu"> 
 
                                             <li><a hx-get="{% url 'create_depo' %}" hx-target="body" hx-swap="beforeend">Registra Depósitos</a></li>
+                                            
                                             <li><a href="/list_depo">Lista De Depósitos</a></li>
-
+                                            
+                                            <li><a hx-get="{% url 'create-efe' %}" hx-target="body" hx-swap="beforeend">Registra Efectivo</a></li>
+                                            
+                                            <li><a href="/list_efe">Lista De Efectivo</a></li>
+                                            
                                         </ol>
 
                                     </li>
@@ -46,6 +51,10 @@
                                          <ol class="gn-submenu">
                                              <li><a href="/list_depo_up">Lista De Depósitos Act.</a></li>
                                         </ol>
+                                        <ol class="gn-submenu">
+                                            <li><a href="/list_fac_reparto">Lista De Facturas Reparto</a></li>
+                                       </ol>
+
                                     </li>
 
                                     <li><a href="#works" class="gn-icon gn-icon-download">Desarrollos</a></li>

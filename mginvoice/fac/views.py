@@ -26,7 +26,12 @@ from django.views.generic.base import View
 
 from django.views.decorators.http import require_http_methods
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-import re
+
+from teso.forms import RepartosForm
+import json
+from django.http import HttpResponse
+
+
 
 def clear_rfc(str_00):
     pattern = r'[^0-9A-Za-z]'
@@ -309,3 +314,34 @@ class update_fac_view(View):
         context_data = {"fac":Facturas.objects.get(id=id)}
 
         return render(request,'fac/update_fac.html',context_data)
+
+#*******************************/
+#*******************************/
+'''
+def create_reparto(request):
+    if request.method == "POST":
+        form = RepartosForm(request.POST)  
+        if form.is_valid():
+            reparto = form.save()
+            return HttpResponse(
+                status=204,
+                headers={
+                    'HX-Trigger': json.dumps({
+                        "RepartoListChanged": None,
+                        "showMessage": f"{reparto.ID_REPARTO} added."
+                    })
+                })
+    else:
+        form = RepartosForm()
+    return render(request, 'teso/create_reparto.html', {
+        'form': form,
+    })
+
+'''
+from django.views.generic import (TemplateView, ListView, CreateView, DetailView, FormView)
+
+class create_reparto(DetailView):
+    model = Facturas
+    template_name = 'teso/create_reparto.html'
+
+

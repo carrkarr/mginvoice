@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views
 
-from fac.views import list_fac_view, update_fac_view, delete_fac
+from fac.views import  update_fac_view
 
 urlpatterns = [
     path('import-fac/',views.upload_fac, name ='import-fac'),
@@ -13,9 +13,10 @@ urlpatterns = [
     path('find_fac/', views.find_fac, name='find_fac'),
     path('find_fac_f/', views.find_fac_f, name='find_fac_f'),
 
-
     path('del_fac/<int:id>/',views.delete_fac, name='del_fac'),
 
     path('update-fac-view/<int:id>', update_fac_view.as_view(), name='update_fac_view'),
+
+    path('create_reparto/<int:pk>/', views.create_reparto.as_view(), name='create-reparto'),
  
 ]

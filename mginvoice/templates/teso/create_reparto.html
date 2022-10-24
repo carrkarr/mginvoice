@@ -1,4 +1,5 @@
 {% load widget_tweaks %}
+{% block title %}{{ facturas.FOLIO }}{% endblock %}
 
 <div id="modal"  _="on closeModal add .closing then wait for animationend then remove me">
 
@@ -6,7 +7,8 @@
 
         <a href="#modal.closing"  _="on click trigger closeModal" title="Close" class="close">X</a>
 
-         <h1>Registra Depósitos</h1>
+         <h1>Registra Reparto </h1>
+         <div>Factura: {{facturas.ID_FACTURA }}  {{facturas.FOLIO }} {{facturas.ID_EMISOR }}</div>
     
                 <form hx-post="{{ request.path }}" class="dialog">
                        {% csrf_token %}
@@ -26,7 +28,6 @@
                             {% render_field field|add_class:"form-control" size='10' type="date" data-date-format="dd-mm-yyyy" %}
                             
                         {% else %}
-            
                             {% render_field field class="form-control" placeholder=field.label %}
 
                         {% endif %}
@@ -45,8 +46,11 @@
                 
             <div class="form__button">
 	            <input type="button" value="Cancel" _="on click trigger closeModal"></input>
-                <input type="submit" value="submit"  hx-post="{% url 'create_depo' %}" hx-target="body" hx-swap="beforeend"></input>
-            </div>
+                <!--  
+                 -->
+                    <input type="submit" value="submit"   hx-target="body" hx-swap="beforeend"></input>
+                
+                </div>
 
                 
                 </form>

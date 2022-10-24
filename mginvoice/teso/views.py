@@ -2,6 +2,7 @@ from django.views.decorators.http import require_http_methods
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from oper.models import *
 from oper.forms import DepositosForm
+from teso.forms import RepartosForm
 
 from django.contrib import messages #import messages
 # Create your views here.
@@ -110,18 +111,75 @@ def find_depo_f_up(request):
 
 #*********************************
 #*********************************
+def list_fac_reparto_view(request):
+    facturas = Facturas.objects.all()
+    page = request.GET.get('page', 1)
+    paginator = Paginator(facturas, 20)
+    try:
+        fac_list = paginator.page(page)
+    except PageNotAnInteger:
+        fac_list = paginator.page(1)
+    except EmptyPage:
+        fac_list = paginator.page(paginator.num_pages)
+
+    return render(request, 'teso/list_fac_reparto.html', {'fac_list': fac_list})
 
 
-def modal(request):
-    print ('MODALL')
-    form = DepositosForm()
-    if request.method == 'POST':
-        print ('IFFFF')
-        form=DepositosForm(request.POST)
+def create_reparto(request):
+    if request.method == "POST":
+        form = RepartosForm(request.POST)  
         if form.is_valid():
-            form.save()
-            html = "<div id='email-error' _='on load wait 1s trigger closeModal'>Success</div>"
-            return HttpResponse(html, headers={'HX-Trigger': 'newList'})
-        return HttpResponse('no')
-    print ('CONTINUA MODALL')
-    return render(request, 'teso/modal.html', {'form':form})
+            reparto = form.save()
+            return HttpResponse(
+                status=204,
+                headers={
+                    'HX-Trigger': json.dumps({
+                        "RepartoListChanged": None,
+                        "showMessage": f"{reparto.ID_REPARTO} added."
+                    })
+                })
+    else:
+        form = RepartosForm()
+    return render(request, 'teso/create_reparto.html', {
+        'form': form,
+    })
+
+
+def find_fac(request):
+    q = request.GET.get('query')
+
+    if q:
+        facturas = Facturas.objects.filter(FOLIO__icontains=q)
+    else:
+        facturas = Facturas.objects.all()
+
+    page = request.GET.get('page', 1)
+    paginator = Paginator(facturas, 30)
+    try:
+        fac_list = paginator.page(page)
+    except PageNotAnInteger:
+        fac_list = paginator.page(1)
+    except EmptyPage:
+        fac_list = paginator.page(paginator.num_pages)
+
+    return render(request, 'teso/list_fac_reparto.html', {'fac_list': fac_list})
+
+def find_fac_f(request):
+    q = request.GET.get('query_f')
+
+    if q:
+        facturas = Facturas.objects.filter(FECHA_EMISION__icontains=q)
+    else:
+        facturas = Facturas.objects.all()
+
+    page = request.GET.get('page', 1)
+    paginator = Paginator(facturas, 30)
+    try:
+        fac_list = paginator.page(page)
+    except PageNotAnInteger:
+        fac_list = paginator.page(1)
+    except EmptyPage:
+        fac_list = paginator.page(paginator.num_pages)
+
+    return render(request, 'teso/list_fac_reparto.html', {'fac_list': fac_list})
+

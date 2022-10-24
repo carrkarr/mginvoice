@@ -2,7 +2,7 @@ from django.contrib.admin import forms
 from django import forms
 from django.utils.text import slugify
 from django.core.validators import FileExtensionValidator
-from .models import Depositos
+from .models import Depositos, Efectivo
 import locale
 
 locale.setlocale (locale.LC_ALL, '')
@@ -46,5 +46,32 @@ class DepositosForm(forms.ModelForm):
 
     def save(self, commit: bool = True) -> Depositos:
         task: Depositos = super().save(commit)
+        task.save()
+        return task
+
+
+class EfectivoForm(forms.ModelForm):
+    class Meta:
+        model = Efectivo
+
+        fields = [  'ID_EFECTIVO', 'FECHA_DEPOSITO', 'IMPORTE', 'PORC_COMI',
+                    #'IMPORTE_DISP', 'SALDO', 
+                     ]
+
+        widgets = {
+            'ID_EFECTIVO': forms.Select(attrs={'class': 'form-control', 'label':'Efectivo', 'required':True, }),
+            'FECHA_DEPOSITO':forms.DateInput (attrs={'class': 'date', 'placeholder': 'YYYY-mm-dd', 'required':True,}, format='%Y-%m-%d'),
+            'IMPORTE': forms.TextInput(attrs={'class': 'form-control', 'required':True,}),
+            'PORC_COMI': forms.TextInput(attrs={'class': 'form-control', 'required':True,}),
+            #'IMPORTE_DISP': forms.TextInput(attrs={'class': 'form-control', 'readonly':True,}),
+            #'SALDO': forms.TextInput(attrs={'class': 'form-control', 'required':True,}),
+            #'usuario': forms.Select(attrs={'class': 'form-control', 'required':True,}),
+        }
+
+
+# Create your models here.
+
+    def save(self, commit: bool = True) -> Efectivo:
+        task: Efectivo = super().save(commit)
         task.save()
         return task

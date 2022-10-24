@@ -11,6 +11,7 @@ django-htmx = "*"
 django-widget-tweaks = "*"
 unicodecsv = "*"
 chardet = "*"
+django-computed-property = "*"
 
 [dev-packages]
 
